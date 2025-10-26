@@ -281,16 +281,6 @@
                         </image>
                     </images>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>jkube</id>
-                        <goals>
-                            <goal>resource</goal>
-                            <goal>build</goal>
-                            <goal>helm</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
