@@ -1,0 +1,52 @@
+---
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: "/actuator"
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: "true"
+      percentiles:
+        http:
+          server:
+            requests: "0.9,0.98,0.99,0.995,0.999"
+      sla:
+        http:
+          server:
+            requests: "100,500"
+  security:
+    enabled: false
+  port: 8081
+  server:
+    port: 8081
+spring:
+  web:
+    resources:
+      static-locations: "classpath:/static/browser/"
+  main:
+    banner-mode: false
+  jpa:
+    hibernate:
+      ddl-auto: "validate"
+    open-in-view: false
+info:
+  app:
+    name: "UYM"
+    description: "Unlock-Your-Mind"
+    version: "@project.version@"
+server:
+  address: "0.0.0.0"
+  port: "8880"
+hibernate:
+  discriminator:
+    ignore_explicit_for_joined: "false"
+nl:
+  uym:
+    wattpad:
+      config:
+        base-url: "https://www.wattpad.com/v4/users/Unlock-Your-Mind"

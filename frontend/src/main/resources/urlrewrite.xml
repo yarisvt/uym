@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite
+		PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+		"http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite>
+	<rule>
+		<from>^/home/?$</from>
+		<to>/</to>
+	</rule>
+	<rule>
+		<from>^/public/api/v3/docs$</from>
+		<to>/v3/api-docs?group=@public</to>
+	</rule>
+	<rule>
+		<from>^/public/api/v3/docs.ya?ml$</from>
+		<to>/v3/api-docs.yaml?group=@public</to>
+	</rule>
+	<rule>
+		<from>^/swagger-ui/?$</from>
+		<to>/swagger-ui.html</to>
+	</rule>
+</urlrewrite>
