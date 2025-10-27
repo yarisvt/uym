@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * REST controller exposing a minimal API around Wattpad content for the frontend.
+ *
  * @author Yaris van Thiel
  */
 @RestController
@@ -26,6 +28,11 @@ public class WattpadController {
 	private final WattpadAPI wattpadAPI;
 	private final ConversionService convert;
 
+	/**
+	 * Returns a list of Wattpad stories transformed to the API's Story DTO.
+	 *
+	 * @return list of stories in JSON-friendly format
+	 */
 	@GetMapping("/stories")
 	public List<Story> getStories() {
 		return wattpadAPI.getStories().getStories().stream()

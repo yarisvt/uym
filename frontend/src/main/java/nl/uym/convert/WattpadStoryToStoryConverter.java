@@ -14,6 +14,12 @@ import lombok.NonNull;
 @Component
 public class WattpadStoryToStoryConverter implements Converter<WattpadStory, Story> {
 
+	/**
+	 * Converts a WattpadStory domain object to the public Story DTO used by the API.
+	 *
+	 * @param source the WattpadStory to convert (must not be null)
+	 * @return a new Story instance populated from the source
+	 */
 	@Override
 	public Story convert(@NonNull WattpadStory source) {
 		return Story.builder()

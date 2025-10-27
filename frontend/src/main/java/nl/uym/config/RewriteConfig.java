@@ -12,6 +12,12 @@ import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 
+/**
+ * URL rewrite filter configuration that loads the Tuckey UrlRewrite configuration from classpath:/urlrewrite.xml when
+ * the application starts (except for the "test" and "swagger" profiles).
+ *
+ * @author Yaris van Thiel
+ */
 @Profile("!test & !swagger")
 @Component
 public class RewriteConfig extends UrlRewriteFilter {
@@ -21,6 +27,12 @@ public class RewriteConfig extends UrlRewriteFilter {
 	@Value(RewriteConfig.CONFIG_LOCATION)
 	private Resource resource;
 
+	/**
+	 * Loads the UrlRewrite configuration from the configured resource and checks its validity.
+	 *
+	 * @param filterConfig the servlet filter configuration provided by the container
+	 * @throws ServletException if the configuration cannot be read or is invalid
+	 */
 	@Override
 	protected void loadUrlRewriter(final FilterConfig filterConfig) throws ServletException {
 		try {

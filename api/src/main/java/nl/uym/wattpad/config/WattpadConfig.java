@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestClient;
 
 /**
  * @author Yaris van Thiel
@@ -17,12 +17,14 @@ public class WattpadConfig {
 	@Value("${nl.uym.wattpad.config.base-url}")
 	private String baseUrl;
 
+	/**
+	 * Creates the RestClient used to communicate with the Wattpad API. Sets the base URL from configuration and a
+	 * realistic User-Agent header.
+	 *
+	 * @return configured RestClient bean
+	 */
 	@Bean
-	public WebClient createWebclient() {
-		return WebClient.builder()
-		        .baseUrl(baseUrl)
-		        .defaultHeader(HttpHeaders.USER_AGENT, USER_AGENT)
-		        .build();
-
+	RestClient createRestClient() {
+		return RestClient.builder().baseUrl(baseUrl).defaultHeader(HttpHeaders.USER_AGENT, USER_AGENT).build();
 	}
 }
