@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-frontend/src/main/uym/src/api
+src/main/uym/src/api

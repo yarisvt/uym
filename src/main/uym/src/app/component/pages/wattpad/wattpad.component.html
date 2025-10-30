@@ -1,0 +1,23 @@
+@if (loading) {
+  <div class="grid sm:grid-cols-4 md:grid-cols-12 xl:grid-cols-12 gap-4">
+    @for (n of numSequence(9); track n) {
+      <div
+        class="col-span-8 sm:col-span-10 md:col-span-6 xl:col-span-4 p-2"
+      >
+        <app-story/>
+      </div>
+    }
+  </div>
+}
+
+@if (stories && stories | async; as s) {
+  <div class="grid sm:grid-cols-4 md:grid-cols-12 xl:grid-cols-12 gap-4">
+    @for (story of s; track story; let i = $index) {
+      <div
+        class="col-span-8 sm:col-span-10 md:col-span-6 xl:col-span-4 p-2"
+      >
+        <app-story [story]="story"></app-story>
+      </div>
+    }
+  </div>
+}

@@ -1,0 +1,42 @@
+---
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: "/actuator"
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: "true"
+      percentiles:
+        http:
+          server:
+            requests: "0.9,0.98,0.99,0.995,0.999"
+  server:
+    port: 8081
+spring:
+  web:
+    resources:
+      static-locations: "classpath:/static/browser/"
+  main:
+    banner-mode: false
+  jpa:
+    hibernate:
+      ddl-auto: "validate"
+    open-in-view: false
+info:
+  app:
+    title: "UYM"
+    description: "Unlock-Your-Mind"
+    version: "@project.version@"
+server:
+  address: "0.0.0.0"
+  port: "8880"
+nl:
+  uym:
+    wattpad:
+      config:
+        username: "Unlock-Your-Mind"

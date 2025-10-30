@@ -1,0 +1,6 @@
+---
+server:
+  port: 18880
+management:
+  server:
+    port: 18081
