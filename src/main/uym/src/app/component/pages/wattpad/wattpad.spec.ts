@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WattpadComponent } from './wattpad.component';
+import { Wattpad } from './wattpad';
 
 describe('Wattpad', () => {
-	let component : WattpadComponent;
-	let fixture : ComponentFixture<WattpadComponent>;
+	let component : Wattpad;
+	let fixture : ComponentFixture<Wattpad>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [WattpadComponent]
+			imports: [Wattpad]
 		})
 			.compileComponents();
 
-		fixture = TestBed.createComponent(WattpadComponent);
+		fixture = TestBed.createComponent(Wattpad);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

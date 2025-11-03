@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.wattpad4j.api.WattpadApi;
+import org.wattpad4j.api.WattpadApiException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class WattpadController {
 	 * @return list of stories in JSON-friendly format
 	 */
 	@GetMapping("/stories")
-	public List<Story> getStories() throws InterruptedException {
+	public List<Story> getStories() throws WattpadApiException {
 		return wattpadAPI.getStories(userName, false).getStories().stream()
 		        .map(s -> convert.convert(s, Story.class))
 		        .toList();
@@ -51,7 +52,7 @@ public class WattpadController {
 	 * @return User in JSON-friendly format
 	 */
 	@GetMapping("/user")
-	public User getUser() {
+	public User getUser() throws WattpadApiException {
 		return convert.convert(wattpadAPI.getUser(userName), User.class);
 	}
 }

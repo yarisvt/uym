@@ -1,2 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+.background-color-landing {
+	background-color: #ede0d4;
+}
+
+.background-color-footer {
+	background-color: #e6ccb2;
+}

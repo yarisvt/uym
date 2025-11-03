@@ -19,6 +19,7 @@
               "base": "../../../target/classes/static"
             },
             "assets": [
+              "src/assets",
               "src/assets/images"
             ],
             "styles": [
@@ -76,6 +77,7 @@
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "assets": [
+              "src/assets",
               "src/assets/images"
             ],
             "styles": [

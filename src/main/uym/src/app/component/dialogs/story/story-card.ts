@@ -5,14 +5,14 @@ import { Skeleton } from 'primeng/skeleton';
 
 @Component({
 	selector: 'app-story',
-  imports: [
-    Tooltip,
-    Skeleton,
-  ],
-	templateUrl: './story.component.html',
-	styleUrl: './story.component.css',
+	imports: [
+		Tooltip,
+		Skeleton,
+	],
+	templateUrl: './story-card.html',
+	styleUrl: './story-card.css',
 })
-export class StoryComponent {
+export class StoryCard {
 
 	readonly story = input<Story>()
 
