@@ -1,10 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 
+body {
+	font-family: "Roboto", serif;
+	overflow-x: hidden;
+}
+
 .background-color-landing {
 	background-color: #ede0d4;
 }
 
 .background-color-footer {
 	background-color: #e6ccb2;
+}
+
+.color-2 {
+	color: #b79375;
+}
+
+.count-border-color {
+	border-color: #b79375;
+}
+
+.cover-img {
+	max-width: 85vw;
+	max-height: 85vh;
+}
+
+.height-minus-header {
+	height: calc(100vh - (var(--spacing) * 20));
 }

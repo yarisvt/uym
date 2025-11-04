@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { User } from '../../../../api';
 
 @Component({
 	selector: 'app-about',
@@ -8,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class About {
 
+
+	readonly user = input.required<User>()
 }

@@ -6,6 +6,9 @@ import { Books } from '../books/books';
 import { ActivatedRoute } from '@angular/router';
 import { Header } from '../../dialogs/header/header';
 import { About } from '../about/about';
+import { Story, User, WattpadControllerService } from '../../../../api';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-landing',
@@ -15,20 +18,26 @@ import { About } from '../about/about';
 		Home,
 		Books,
 		Header,
-		About
+		About,
+		AsyncPipe
 	],
 	templateUrl: './landing.html',
 	styleUrl: './landing.css',
 })
 export class Landing implements OnInit {
 
-	constructor(private activatedRoute : ActivatedRoute) {
+	stories ? : Observable<Story[]>
+	user ? : Observable<User>
+
+	constructor(private activatedRoute : ActivatedRoute, private wattpadController : WattpadControllerService) {
 	}
 
 	ngOnInit() {
 		this.activatedRoute.fragment.subscribe((fragment : string | null) => {
 			if (fragment) this.jumpToSection(fragment);
 		});
+		this.stories = this.wattpadController.getStories();
+		this.user = this.wattpadController.getUser();
 	}
 
 	jumpToSection(section : string | null) {

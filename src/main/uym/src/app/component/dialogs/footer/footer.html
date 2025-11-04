@@ -1,17 +1,50 @@
 <footer
-	class="width-full flex justify-end items-center flex-row p-4 background-color-footer"
+	class="width-full flex justify-end items-center flex-row p-4 background-color-footer select-none"
 >
-	<div class="grow-1 flex ml-8 gap-6 items-center">
-		<a routerLink="" fragment="home">Home</a>
-		<a routerLink="" fragment="about">About</a>
-		<a routerLink="" fragment="books">Books</a>
-		<a routerLink="" fragment="fanfiction">Fan fiction</a>
-	</div>
+	<app-router-links class="grow-1 flex ml-8 gap-6 items-center" />
 	<div class="grow-1">
 		Copyright &copy; {{ currentYear }} Unlock Your Mind
 	</div>
 	<div class="grow-1 flex mr-8 gap-6 justify-end items-center">
-		<a>link 1</a>
-		<a>link 2</a>
+		<a href="https://www.wattpad.com/user/Unlock-Your-Mind">
+			<img
+				class="w-6"
+				type="image/svg+xml"
+				src="assets/images/icons/wattpad.svg"
+				alt="wattpad"
+			/>
+		</a>
+		<a href="https://www.youtube.com/channel/UCjvWPSJGnwpVJedFVCdIZmA">
+			<img
+				class="w-6"
+				type="image/svg+xml"
+				src="assets/images/icons/youtube.svg"
+				alt="youtube"
+			/>
+		</a>
+		<a href="https://nl.pinterest.com/unlockyourmind/_saved/">
+			<img
+				class="w-6"
+				type="image/svg+xml"
+				src="assets/images/icons/pinterest.svg"
+				alt="pinterest"
+			/>
+		</a>
+		<a href="https://unlockyourmind-wp.tumblr.com/">
+			<img
+				class="w-6"
+				type="image/svg+xml"
+				src="assets/images/icons/tumblr.svg"
+				alt="tumblr"
+			/>
+		</a>
+		<a href="https://open.spotify.com/user/nelleke.v.leeuwen">
+			<img
+				class="w-6"
+				type="image/svg+xml"
+				src="assets/images/icons/spotify.svg"
+				alt="spotify"
+			/>
+		</a>
 	</div>
 </footer>
