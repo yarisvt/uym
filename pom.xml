@@ -35,7 +35,7 @@
         <spotless.version>3.0.0</spotless.version>
         <springdoc.openapi.version>2.8.13</springdoc.openapi.version>
         <tuckey.version>5.1.3</tuckey.version>
-        <wattpad4j.version>0.1.0-SNAPSHOT</wattpad4j.version>
+        <wattpad4j.version>0.1.0</wattpad4j.version>
 
         <!-- JKube properties -->
         <jkube.version>1.18.1</jkube.version>
