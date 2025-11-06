@@ -1,90 +1,50 @@
-@let s = story(); @if (!s) {
+@let s = story();
 <div
-	class="bg-green-50 p-4 border h-full border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded-md flex flex-col justify-between"
+	class="p-2 lg:p-4 h-full grid grid-cols-2 items-center border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded-md"
 >
-	<div class="flex justify-center rounded p-1">
-		<div class="relative">
-			<p-skeleton
-				shape="rectangle"
-				width="256px"
-				height="400px"
-				class="mb-2"
-			/>
-		</div>
-	</div>
-	<div class="pt-6 flex-grow-1">
-		<div
-			class="flex flex-row justify-between items-start products-start gap-2"
-		>
-			<p-skeleton width="75%" />
-			<p-skeleton width="20%" />
-		</div>
-		<div class="flex flex-col gap-6 mt-6">
-			<p-skeleton width="100%" height="4rem" />
-		</div>
-	</div>
-</div>
-} @else {
-<div
-	class="p-4 border h-full border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded-md flex flex-col justify-between"
->
-	<div class="flex justify-center rounded p-1">
-		<div class="relative">
+	<div class="flex justify-center rounded">
+		<div class="">
 			<a [href]="s.url" target="_blank">
 				<img
-					class="rounded"
+					class="rounded max-h-[30vh] md:max-h-[55vh] lg:max-h-[65vh] xl:max-h-[80vh]"
 					[src]="s.cover"
 					[alt]="s.title"
-					style="max-width: 300px"
 				/>
 			</a>
 		</div>
 	</div>
-	<div class="pt-6 flex-grow-1">
+	<div class="flex flex-col justify-between items-center">
 		<div
-			class="flex flex-row justify-between items-start products-start gap-2"
+			class="w-full flex flex-row justify-center items-center text-center"
 		>
 			<div>
 				<a
 					[href]="s.url"
 					target="_blank"
-					class="text-3xl font-medium mt-1 hover:underline"
-					>{{ s.title }}</a
+					class="text-base mt-1 hover:underline"
 				>
-			</div>
-			<div
-				class="bg-surface-100 p-1"
-				style="border-radius: 30px; height: 100%"
-			>
-				<div
-					class="bg-surface-0 flex products-center items-center gap-2 justify-center py-1 px-2"
-					style="
-						border-radius: 30px;
-						box-shadow:
-							0 1px 2px 0 rgba(0, 0, 0, 0.04),
-							0 1px 2px 0 rgba(0, 0, 0, 0.06);
-					"
-				>
-					<i class="pi pi-eye text-black-500 text-base"></i>
-					<span pTooltip="Gelezen" class="text-surface-900 text-base"
-						>{{ s.readCount }}</span
-					>
-					<i class="pi pi-star text-black text-base"></i>
-					<span pTooltip="Stemmen" class="text-surface-900 text-base"
-						>{{ s.voteCount }}</span
-					>
-					<i class="pi pi-list text-black text-base"></i>
-					<span
-						pTooltip="Hoofstukken"
-						class="text-surface-900 text-base"
-						>{{ s.numParts }}</span
-					>
-				</div>
+					{{ s.title }}
+				</a>
 			</div>
 		</div>
-		<div class="flex flex-col gap-6 mt-6">
-			<span class="text-lg font-semibold">{{ s.description }}</span>
+		<div class="flex items-center gap-2 justify-start mt-2">
+			<i class="pi pi-eye text-black-500 text-xs"></i>
+			<span pTooltip="Gelezen" class="text-surface-900 text-xs"
+				>{{ s.readCount }}</span
+			>
+			<i class="pi pi-star text-black text-xs"></i>
+			<span pTooltip="Stemmen" class="text-surface-900 text-xs"
+				>{{ s.voteCount }}</span
+			>
+			<i class="pi pi-list text-black text-xs"></i>
+			<span pTooltip="Hoofstukken" class="text-surface-900 text-xs"
+				>{{ s.numParts }}</span
+			>
+		</div>
+		<div class="flex flex-col mt-4">
+			<span class="text-sm text-gray-600 font-semibold text-justify"
+				>{{ s.description }}</span
+			>
 		</div>
 	</div>
 </div>
-}

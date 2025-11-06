@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Footer } from '../../dialogs/footer/footer';
-import { Wattpad } from '../wattpad/wattpad';
+import { Stories } from '../wattpad/stories';
 import { Home } from '../home/home';
 import { Books } from '../books/books';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
 	selector: 'app-landing',
 	imports: [
 		Footer,
-		Wattpad,
+		Stories,
 		Home,
 		Books,
 		Header,

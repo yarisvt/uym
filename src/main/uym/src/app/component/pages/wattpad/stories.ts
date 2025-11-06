@@ -1,17 +1,18 @@
 import { Component, input } from '@angular/core';
-import { Story } from '../../../../api';
+import { Story, User } from '../../../../api';
 import { StoryCard } from '../../dialogs/story/story-card';
 
 @Component({
-	selector: 'app-wattpad',
+	selector: 'app-stories',
 	imports: [
 		StoryCard,
 	],
-	templateUrl: './wattpad.html',
-	styleUrl: './wattpad.css',
+	templateUrl: './stories.html',
+	styleUrl: './stories.css',
 })
-export class Wattpad {
+export class Stories {
 
 	readonly stories = input.required<Story[]>()
+	readonly user = input.required<User>()
 
 }
