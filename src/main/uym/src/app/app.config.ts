@@ -8,6 +8,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ApiModule, Configuration, ConfigurationParameters } from '../api';
 import { environment } from '../environments/environment';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 function apiConfigFactory() : Configuration {
@@ -26,6 +28,14 @@ export const appConfig : ApplicationConfig = {
 		provideZonelessChangeDetection(),
 		provideHttpClient(withInterceptorsFromDi()),
 		provideRouter(routes),
+		provideTranslateService({
+			loader: provideTranslateHttpLoader({
+				prefix: '/assets/i18n/',
+				suffix: '.json'
+			}),
+			fallbackLang: 'en',
+			lang: localStorage.getItem("language") || 'en',
+		}),
 		provideAnimations(),
 		providePrimeNG({
 			theme: {

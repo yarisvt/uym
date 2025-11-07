@@ -6,10 +6,22 @@
 		<p>Mind</p>
 	</div>
 	<div class="grow-1 flex gap-4 lg:gap-12 items-center">
-		<a routerLink="" fragment="home">Home</a>
-		<a routerLink="" fragment="about">About</a>
-		<a routerLink="" fragment="books">Books</a>
-		<a routerLink="" fragment="fanfiction">Stories</a>
+		<a routerLink="" fragment="home">{{ 'links.home' | translate }}</a>
+		<a routerLink="" fragment="about">{{ 'links.about' | translate }}</a>
+		<a routerLink="" fragment="books">{{ 'links.books' | translate }}</a>
+		<a routerLink="" fragment="stories"
+			>{{ 'links.stories' | translate }}</a
+		>
 	</div>
 	<div class="md:grow-20"></div>
+	<div class="">
+		<select
+			[(ngModel)]="selectedLanguage"
+			(change)="switchLanguage($event, selectedLanguage)"
+		>
+			@for (language of languages; track language) {
+			<option class="background-color-landing" [pTooltip]="language.name" [ngValue]="language">{{ language.flag }}</option>
+			}
+		</select>
+	</div>
 </header>

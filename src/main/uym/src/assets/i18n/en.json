@@ -1,0 +1,33 @@
+{
+  "links": {
+    "home": "Home",
+    "about": "About",
+    "books": "Books",
+    "stories": "Stories"
+  },
+  "home": {
+    "title": "A Divine Bestseller",
+    "subTitle": "Discover the infamous Gods",
+    "info": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,sunt in culpa qui officia deserunt mollit anim id est laborum."
+  },
+  "about": {
+    "title": "The Story of",
+    "subTitle": "Unlock Your Mind",
+    "info1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "info2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "published": {
+      "book": "Book Published",
+      "stories": "Stories"
+    }
+  },
+  "books": {},
+  "stories": {
+    "by": "Stories by {{userName}}",
+    "numberOf": "{{numberOfStories}} Stories"
+  },
+  "story": {
+    "read": "Read",
+    "votes": "Votes",
+    "parts": "Parts"
+  }
+}

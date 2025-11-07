@@ -32,19 +32,19 @@
 		<div class="flex items-center gap-2 justify-start mt-2">
 			<i class="pi pi-eye text-black-500"></i>
 			<span
-				pTooltip="Gelezen"
+				[pTooltip]="'story.votes' | translate"
 				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
 				>{{ s.readCount }}</span
 			>
 			<i class="pi pi-star text-black"></i>
 			<span
-				pTooltip="Stemmen"
+				[pTooltip]="'story.votes' | translate"
 				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
 				>{{ s.voteCount }}</span
 			>
 			<i class="pi pi-list text-black"></i>
 			<span
-				pTooltip="Hoofstukken"
+				[pTooltip]="'story.parts' | translate"
 				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
 				>{{ s.numParts }}</span
 			>

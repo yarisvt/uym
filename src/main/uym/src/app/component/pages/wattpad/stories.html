@@ -1,11 +1,13 @@
+@let userName = user().name; @let numberOfStories = stories().length;
+
 <div class="flex justify-center">
 	<div class="sm:max-w-[90vw] lg:max-w-[100vw]">
 		<div class="ml-3">
 			<div class="text-xl xl:text-2xl 2xl:text-3xl">
-				Stories by {{ user().name }}
+				{{'stories.by' | translate:{userName} }}
 			</div>
 			<div class="text-md xl:text-lg 2xl:text-xl text-gray-600">
-				{{ stories().length }} Stories
+				{{'stories.numberOf' | translate:{numberOfStories} }}
 			</div>
 		</div>
 		<div
