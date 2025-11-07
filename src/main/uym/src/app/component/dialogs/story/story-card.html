@@ -1,19 +1,21 @@
 @let s = story();
 <div
-	class="p-2 lg:p-4 h-full grid grid-cols-2 items-center border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded-md"
+	class="p-2 h-full flex flex-row items-start border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded-md"
 >
 	<div class="flex justify-center rounded">
 		<div class="">
 			<a [href]="s.url" target="_blank">
 				<img
-					class="rounded max-h-[30vh] md:max-h-[55vh] lg:max-h-[65vh] xl:max-h-[80vh]"
+					class="rounded max-w-[35vw] lg:max-w-[80vw] xl:max-w-[80vw] 2xl:max-w-[100vw] 2xl:min-h-[30vh]"
 					[src]="s.cover"
 					[alt]="s.title"
 				/>
 			</a>
 		</div>
 	</div>
-	<div class="flex flex-col justify-between items-center">
+	<div
+		class="pl-2 pr-2 md:pl-4 md:pr-4 flex flex-col justify-between items-center"
+	>
 		<div
 			class="w-full flex flex-row justify-center items-center text-center"
 		>
@@ -21,28 +23,35 @@
 				<a
 					[href]="s.url"
 					target="_blank"
-					class="text-base mt-1 hover:underline"
+					class="text-base sm:text-xl mt-1 hover:underline"
 				>
 					{{ s.title }}
 				</a>
 			</div>
 		</div>
 		<div class="flex items-center gap-2 justify-start mt-2">
-			<i class="pi pi-eye text-black-500 text-xs"></i>
-			<span pTooltip="Gelezen" class="text-surface-900 text-xs"
+			<i class="pi pi-eye text-black-500"></i>
+			<span
+				pTooltip="Gelezen"
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
 				>{{ s.readCount }}</span
 			>
-			<i class="pi pi-star text-black text-xs"></i>
-			<span pTooltip="Stemmen" class="text-surface-900 text-xs"
+			<i class="pi pi-star text-black"></i>
+			<span
+				pTooltip="Stemmen"
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
 				>{{ s.voteCount }}</span
 			>
-			<i class="pi pi-list text-black text-xs"></i>
-			<span pTooltip="Hoofstukken" class="text-surface-900 text-xs"
+			<i class="pi pi-list text-black"></i>
+			<span
+				pTooltip="Hoofstukken"
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
 				>{{ s.numParts }}</span
 			>
 		</div>
 		<div class="flex flex-col mt-4">
-			<span class="text-sm text-gray-600 font-semibold text-justify"
+			<span
+				class="text-gray-600 font-semibold text-justify text-sm sm:text-base md:text-lg lg:text-base"
 				>{{ s.description }}</span
 			>
 		</div>

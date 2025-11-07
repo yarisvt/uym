@@ -30,3 +30,16 @@ body {
 .height-minus-header {
 	height: calc(100vh - (var(--spacing) * 20));
 }
+
+@media (width >= 68rem) {
+	.force-2-rows {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (width >= 118rem) {
+	.force-3-rows {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		max-width: 90vw;
+	}
+}
