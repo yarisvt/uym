@@ -6,20 +6,43 @@ body {
 	overflow-x: hidden;
 }
 
+:root {
+	--uym-primary-color: #ede0d4;
+	--uym-secondary-color: #e6ccb2;
+	--uym-tertiary-color: #b79375;
+	--uym-quaternary-color: #b79375;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	background: var(--uym-primary-color);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--uym-quaternary-color);
+	border-radius: 20px;
+}
+
 .background-color-landing {
-	background-color: #ede0d4;
+	background-color: var(--uym-primary-color);
 }
 
 .background-color-footer {
-	background-color: #e6ccb2;
+	background-color: var(--uym-secondary-color);
 }
 
-.color-2 {
-	color: #b79375;
+.cinzel-decorative {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.color-title {
+	color: var(--uym-tertiary-color);
 }
 
 .count-border-color {
-	border-color: #b79375;
+	border-color: var(--uym-quaternary-color);
 }
 
 .cover-img {

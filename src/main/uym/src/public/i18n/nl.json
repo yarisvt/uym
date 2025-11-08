@@ -6,15 +6,16 @@
     "stories": "Verhalen"
   },
   "home": {
-    "title": "Een Goddelijke Bestseller",
-    "subTitle": "Ontdek de beruchte Goden",
-    "info": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "title": "Een Bestseller",
+    "subTitle": "Ontdek de Gerenommeerde Orions",
+    "description1": "Hier volgen de kronieken van de Orions zoals het generatie op generatie doorverteld is. Wees gewaarschuwd, want dit verhaal mag niet vergeten worden. Ooit zal het licht opnieuw met de duisternis strijden. Dan zullen zij die het vergeten zijn de prijs moeten betalen.",
+    "description2": "Eeuwen geleden, toen de draken nog tembaar waren en de bergen onherbergzaam, schiepen de Orions het eiland Nador. Maar als één van hen, Rhena, in een visioen de jonge wereld ziet vergaan, worden de Orions geconfronteerd met een toekomst die zelfs hun krachten te boven gaat. Om Nador te redden zal één van hen de ultieme prijs moeten betalen."
   },
   "about": {
     "title": "Het verhaal van",
     "subTitle": "Unlock Your Mind",
-    "info1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "info2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "description1": "Lezen is er bij mij met de paplepel ingegoten, eerst door mijn ouders die mij graag voorlazen en later zelf. Behalve het lezen van verhalen, vind ik het ook ontzettend ontzettend leuk om zelf verhalen te schrijven en dit doe ik vooral in de vorm van fanfictions over mijn meest geliefde boeken, series en films.",
+    "description2": "Daarnaast heb ik ook een boek geschreven, <span class=\"cinzel-decorative\">Levensadem</span>. Een verhaal dat gaat over Orions die een eiland Nador hebben geschapen en daar ook wonen, maar al hun krachten moeten bungelen om ervoor te zorgen dat de wereld niet vergaat. Dit boek heb ik ook fysiek uitgebracht, waarbij de cover, en afbeeldingen gemaakt zijn door <a target=\"_blank\" href=\"https://linktr.ee/lionsartpage\">Lions Art Page</a>.",
     "published": {
       "book": "Boek gepubliceerd",
       "stories": "Verhalen"

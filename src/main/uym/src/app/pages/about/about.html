@@ -4,7 +4,7 @@
 	<div class="flex items-center justify-around flex-col h-full">
 		<div class="flex items-center flex-col">
 			<p
-				class="text-base sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl lg:mt-10 mb-4 lg:mb-5 color-2"
+				class="text-base sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl lg:mt-10 mb-4 lg:mb-5 color-title"
 			>
 				{{'about.title' | translate}}
 			</p>
@@ -16,13 +16,13 @@
 			<p
 				class="text-xs sm:text-base lg:text-base xl:text-xl 2xl:text-2xl pl-4 pr-4 mb-5 text-justify w-[80vw] lg:w-[60vw]"
 			>
-				{{'about.info1' | translate}}
+				{{'about.description1' | translate}}
 			</p>
 			<p
 				class="text-xs sm:text-base lg:text-base xl:text-xl 2xl:text-2xl pl-4 pr-4 mb-5 text-justify w-[80vw] lg:w-[60vw]"
+        [innerHTML]="'about.description2' | translate"
 			>
-				{{'about.info2' | translate}}
-			</p>
+      </p>
 		</div>
 		<div
 			class="flex flex-row border-b-2 border-t-2 count-border-color mt-10 xl:mt-20 w-[70vw] lg:w-[50vw]"
@@ -30,7 +30,9 @@
 			<div
 				class="grow-1 flex items-center justify-center border-r-2 count-border-color"
 			>
-				<p class="text-xl sm:text-3xl lg:text-5xl xl:text-6xl color-2">
+				<p
+					class="text-xl sm:text-3xl lg:text-5xl xl:text-6xl color-title"
+				>
 					1
 				</p>
 				<p class="text-sm sm:text-lg lg:text-2xl x:text-4xl ml-2">
@@ -38,7 +40,9 @@
 				</p>
 			</div>
 			<div class="grow-1 flex items-center justify-center">
-				<p class="text-xl sm:text-3xl lg:text-5xl xl:text-6xl color-2">
+				<p
+					class="text-xl sm:text-3xl lg:text-5xl xl:text-6xl color-title"
+				>
 					{{ user().numStoriesPublished }}
 				</p>
 				<p class="text-sm sm:text-lg lg:text-2xl x:text-4xl ml-2">
