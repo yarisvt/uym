@@ -21,6 +21,8 @@ jobs:
       run: mvn -B verify --file pom.xml
   package-version:
     runs-on: ubuntu-24.04
+    needs: build
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success')}}
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 25
