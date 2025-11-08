@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
-import { Story } from '../../../../api';
 import { Tooltip } from 'primeng/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Story } from '../../../../../api';
 
 @Component({
 	selector: 'app-story',

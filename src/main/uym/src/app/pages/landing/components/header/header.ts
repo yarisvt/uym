@@ -6,12 +6,12 @@ import { Tooltip } from 'primeng/tooltip';
 
 @Component({
 	selector: 'app-header',
-  imports: [
-    RouterLink,
-    TranslatePipe,
-    FormsModule,
-    Tooltip
-  ],
+	imports: [
+		RouterLink,
+		TranslatePipe,
+		FormsModule,
+		Tooltip
+	],
 	templateUrl: './header.html',
 	styleUrl: './header.css',
 })
@@ -21,7 +21,7 @@ export class Header {
 
 	languages : Language[] = [
 		{ key: 1, name: 'English', code: 'en', flag: '🇬🇧' },
-		{ key:2,  name: 'Nederlands', code: 'nl', flag: '🇳🇱' }
+		{ key: 2, name: 'Nederlands', code: 'nl', flag: '🇳🇱' }
 	]
 	selectedLanguage = this.getSelectedLanguage()
 
@@ -41,7 +41,7 @@ export class Header {
 }
 
 interface Language {
-  key: number,
+	key : number,
 	name : string
 	code : string,
 	flag : string

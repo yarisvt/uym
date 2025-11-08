@@ -12,7 +12,6 @@ import org.springframework.web.context.request.async.AsyncRequestNotUsableExcept
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.wattpad4j.api.WattpadApiException;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -31,52 +30,56 @@ public class ExceptionHandler {
 	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(Throwable.class)
-	public ResponseEntity<String> handle(final HttpServletRequest request, final Throwable ex) {
+	public ResponseEntity<String> handle(final Throwable ex) {
 		ExceptionHandler.log.warn("Unhandled error", ex);
-		return createResponse(HttpStatus.BAD_REQUEST, ex, "Unknown error");
+		return createResponse(HttpStatus.BAD_REQUEST, ex, "Invalid argument");
 	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(ClientAbortException.class)
-	public ResponseEntity<String> handle(final HttpServletRequest request, final ClientAbortException ex) {
-		return createResponse(HttpStatus.BAD_REQUEST, ex, "Unknown error");
+	public ResponseEntity<String> handle(final ClientAbortException ex) {
+		return createResponse(HttpStatus.BAD_REQUEST, ex, "Invalid argument");
 	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(AsyncRequestNotUsableException.class)
-	public ResponseEntity<String> handle(final HttpServletRequest request, final AsyncRequestNotUsableException ex) {
-		return createResponse(HttpStatus.BAD_REQUEST, ex, "Unknown error");
+	public ResponseEntity<String> handle(final AsyncRequestNotUsableException ex) {
+		return createResponse(HttpStatus.BAD_REQUEST, ex, "Invalid argument");
 	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<String> handle(final HttpServletRequest request, final IllegalArgumentException ex) {
+	public ResponseEntity<String> handle(final IllegalArgumentException ex) {
 		ExceptionHandler.log.info("Caught exception", ex);
 		return createResponse(HttpStatus.BAD_REQUEST, ex, "Invalid argument");
 	}
 
+	@org.springframework.web.bind.annotation.ExceptionHandler(NoResourceFoundException.class)
+	public ResponseEntity<String> handle(final NoResourceFoundException ex) {
+		return createResponse(HttpStatus.BAD_REQUEST, ex, "Invalid argument");
+	}
+
 	@org.springframework.web.bind.annotation.ExceptionHandler(IllegalAccessException.class)
-	public ResponseEntity<String> handle(final HttpServletRequest request, final IllegalAccessException ex) {
+	public ResponseEntity<String> handle(final IllegalAccessException ex) {
 		return createResponse(HttpStatus.UNAUTHORIZED, ex, "Unauthorized");
 	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(NoSuchElementException.class)
-	public ResponseEntity<String> handle(final HttpServletRequest request, final NoSuchElementException ex) {
+	public ResponseEntity<String> handle(final NoSuchElementException ex) {
 		return createResponse(HttpStatus.NOT_FOUND, ex, "Not found");
 	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(WattpadApiException.class)
-	public ResponseEntity<String> handle(final HttpServletRequest request, final WattpadApiException ex) {
+	public ResponseEntity<String> handle(final WattpadApiException ex) {
 		return createResponse(HttpStatus.NOT_FOUND, ex, "Wattpad error");
 	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(UndeclaredThrowableException.class)
-	public ResponseEntity<String> handle(final HttpServletRequest request, final UndeclaredThrowableException ex) {
+	public ResponseEntity<String> handle(final UndeclaredThrowableException ex) {
 		return switch (ex.getCause()) {
-		case ClientAbortException e -> handle(request, e);
-		case NoSuchElementException e -> handle(request, e);
-		case NoResourceFoundException e -> handle(request, e);
-		case IllegalAccessException e -> handle(request, e);
-		case IllegalArgumentException e -> handle(request, e);
-		case AsyncRequestNotUsableException e -> handle(request, e);
-		default -> handle(request, ex.getCause());
+		case ClientAbortException e -> handle(e);
+		case NoSuchElementException e -> handle(e);
+		case IllegalAccessException e -> handle(e);
+		case IllegalArgumentException e -> handle(e);
+		case AsyncRequestNotUsableException e -> handle(e);
+		default -> handle(ex.getCause());
 		};
 	}
 }

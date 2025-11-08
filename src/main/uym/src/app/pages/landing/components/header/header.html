@@ -20,7 +20,13 @@
 			(change)="switchLanguage($event, selectedLanguage)"
 		>
 			@for (language of languages; track language) {
-			<option class="background-color-landing" [pTooltip]="language.name" [ngValue]="language">{{ language.flag }}</option>
+			<option
+				class="background-color-landing"
+				[pTooltip]="language.name"
+				[ngValue]="language"
+			>
+				{{ language.flag }}
+			</option>
 			}
 		</select>
 	</div>

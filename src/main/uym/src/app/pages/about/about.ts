@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
-import { User } from '../../../../api';
 import { TranslatePipe } from '@ngx-translate/core';
+import { User } from '../../../api';
 
 @Component({
 	selector: 'app-about',

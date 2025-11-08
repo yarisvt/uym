@@ -8,7 +8,7 @@
         <relativePath/>
     </parent>
     <groupId>nl.uym</groupId>
-    <artifactId>ui</artifactId>
+    <artifactId>uym</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>UYM</name>
     <description>Unlock Your Mind</description>
@@ -43,7 +43,7 @@
         <jkube.enricher.jkube-service.name>${project.artifactId}</jkube.enricher.jkube-service.name>
         <jkube.enricher.jkube-service.port>${jkube.generator.java-exec.webPort}</jkube.enricher.jkube-service.port>
         <jkube.generator.java-exec.webPort>8080</jkube.generator.java-exec.webPort>
-        <jkube.generator.name>%g/%a:%t</jkube.generator.name>
+        <jkube.generator.name>ghcr.io/yarisvt/%g:%t</jkube.generator.name>
 
         <!-- Plugins -->
         <openapi.generator.plugin.version>7.11.0</openapi.generator.plugin.version>
@@ -165,8 +165,6 @@
                                     <message>No Snapshots Allowed!</message>
                                     <excludes>
                                         <exclude>nl.uym*</exclude>
-                                        <exclude>org.wattpad4j*</exclude>
-                                        <!-- TODO -->
                                     </excludes>
                                 </requireReleaseDeps>
                             </rules>
@@ -261,7 +259,7 @@
                             <generatorName>typescript-angular</generatorName>
                             <output>src/main/uym/src/api</output>
                             <configOptions>
-                                <ngVersion>18.0.0</ngVersion>
+                                <ngVersion>20.2.0</ngVersion>
                                 <stringEnums>true</stringEnums>
                                 <withInterfaces>true</withInterfaces>
                                 <useSingleRequestParameter>true</useSingleRequestParameter>
@@ -517,18 +515,6 @@
                     </images>
                     <enricher>
                         <config>
-                            <ocs-config>
-                                <secret>true</secret>
-                                <name>application-config</name>
-                                <path>/deployments/config</path>
-                                <filename>application.properties</filename>
-                            </ocs-config>
-                            <ocs-resource>
-                                <cpuRequest>500m</cpuRequest>
-                                <cpuLimit>2000m</cpuLimit>
-                                <memoryRequest>512Mi</memoryRequest>
-                                <memoryLimit>768Mi</memoryLimit>
-                            </ocs-resource>
                             <jkube-healthcheck-spring-boot>
                                 <timeoutSeconds>30</timeoutSeconds>
                                 <readinessProbeInitialDelaySeconds>30</readinessProbeInitialDelaySeconds>
