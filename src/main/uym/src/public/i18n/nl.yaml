@@ -1,0 +1,53 @@
+links:
+  home: Home
+  about: Over
+  books: Boeken
+  stories: Verhalen
+home:
+  title: Een Bestseller
+  subTitle: Ontdek de Gerenommeerde Orions
+  description1: >-
+    Hier volgen de kronieken van de Orions zoals het generatie op generatie
+    doorverteld is. Wees gewaarschuwd, want dit verhaal mag niet vergeten
+    worden. Ooit zal het licht opnieuw met de duisternis strijden. Dan zullen
+    zij die het vergeten zijn de prijs moeten betalen.
+  description2: >-
+    Eeuwen geleden, toen de draken nog tembaar waren en de bergen onherbergzaam,
+    schiepen de Orions het eiland Nador. Maar als één van hen, Rhena, in een
+    visioen de jonge wereld ziet vergaan, worden de Orions geconfronteerd met
+    een toekomst die zelfs hun krachten te boven gaat. Om Nador te redden zal
+    één van hen de ultieme prijs moeten betalen.
+about:
+  title: Het verhaal van
+  subTitle: Unlock Your Mind
+  description1: >-
+    Lezen is er bij mij met de paplepel ingegoten, eerst door mijn ouders die
+    mij graag voorlazen en later zelf. Behalve het lezen van verhalen, vind ik
+    het ook ontzettend ontzettend leuk om zelf verhalen te schrijven. Ook dat
+    begon al van jongs af aan toen ik allerlei verhalen vertelde aan mijn poppen
+    terwijl ik het huis rond liep. Ook mijn familie heeft met smacht geluisterd
+    naar wat ik allemaal te vertellen had. Toen ik ouder was, ben ik echt gaan
+    schrijven, dit doe ik vooral in de vorm van fanfictions over mijn meest
+    geliefde boeken (Lord of the Rings), series (The Walking Dead, Teen Wolf) en
+    films (Narnia).
+  description2: >-
+    Daarnaast heb ik ook een boek geschreven: <span
+    class="cinzel-decorative">Levensadem</span>. Een verhaal dat gaat over
+    Orions die een eiland Nador hebben geschapen en daar ook wonen, maar al hun
+    krachten moeten bungelen om ervoor te zorgen dat de wereld niet vergaat. Ik
+    wilde al erg lang een boek schrijven, en heb daarom gekozen om de minor
+    creatief schrijven te volgen. In een half jaar tijd heb ik het boek
+    geschreven, en ook fysiek uitgebracht. Mijn <a class="underline"
+    target="_blank" href="https://linktr.ee/lionsartpage">lieve broer</a>
+    heeft de fantastisch mooie cover en afbeeldingen gemaakt.
+  published:
+    book: Boek gepubliceerd
+    stories: Verhalen
+books: {}
+stories:
+  by: 'Verhalen door {{userName}}'
+  numberOf: '{{numberOfStories}} Verhalen'
+story:
+  read: Gelezen
+  votes: Stemmen
+  parts: Delen

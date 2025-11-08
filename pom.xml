@@ -412,29 +412,6 @@
                         </gson>
                     </json>
 
-                    <yaml>
-                        <includes>
-                            <include>src/**/*.yaml</include>
-                            <include>src/**/*.yml</include>
-                        </includes>
-                        <excludes>
-                            <exclude>**/node_modules/**/*.*</exclude>
-                            <exclude>**/dist/**/*.*</exclude>
-                        </excludes>
-
-                        <jackson>
-                            <version>2.20.0</version>
-                            <features>
-                                <INDENT_OUTPUT>true</INDENT_OUTPUT>
-                                <ORDER_MAP_ENTRIES_BY_KEYS>false</ORDER_MAP_ENTRIES_BY_KEYS>
-                            </features>
-                            <yamlFeatures>
-                                <WRITE_DOC_START_MARKER>true</WRITE_DOC_START_MARKER>
-                                <MINIMIZE_QUOTES>false</MINIMIZE_QUOTES>
-                            </yamlFeatures>
-                        </jackson>
-                    </yaml>
-
                     <css>
                         <includes>
                             <include>src/**/*.css</include>

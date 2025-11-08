@@ -1,16 +1,16 @@
-import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, Injectable, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ApiModule, Configuration, ConfigurationParameters } from '../api';
 import { environment } from '../environments/environment';
-import { provideTranslateService } from '@ngx-translate/core';
-import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { provideTranslateLoader, provideTranslateService, TranslateLoader, TranslationObject } from '@ngx-translate/core';
+import { parse } from 'yaml';
+import { map, Observable } from 'rxjs';
 
 function apiConfigFactory() : Configuration {
 	const params : ConfigurationParameters = {
@@ -18,6 +18,27 @@ function apiConfigFactory() : Configuration {
 		// set configuration parameters here.
 	}
 	return new Configuration(params);
+}
+
+@Injectable()
+class TranslateYamlHttpLoader implements TranslateLoader {
+	private path : string = '/public/i18n/'
+
+	constructor(
+		private http : HttpClient,
+	) { }
+
+
+	public getTranslation(lang : string) : Observable<TranslationObject> {
+		console.log('lang', lang)
+		return this.http
+			.get(`${this.path}${lang}.yaml`, { responseType: 'text' })
+			.pipe(map((data) => {
+				const a = parse(data);
+				console.log(a)
+				return a;
+			}));
+	}
 }
 
 
@@ -29,10 +50,7 @@ export const appConfig : ApplicationConfig = {
 		provideHttpClient(withInterceptorsFromDi()),
 		provideRouter(routes),
 		provideTranslateService({
-			loader: provideTranslateHttpLoader({
-				prefix: '/public/i18n/',
-				suffix: '.json'
-			}),
+			loader: provideTranslateLoader(TranslateYamlHttpLoader),
 			fallbackLang: 'en',
 			lang: localStorage.getItem("language") || 'en',
 		}),
