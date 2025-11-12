@@ -48,7 +48,7 @@
         <jkube.build.strategy>jib</jkube.build.strategy>
         <jkube.container-image.platforms.1>linux/amd64</jkube.container-image.platforms.1>
         <jkube.container-image.platforms.2>linux/arm64</jkube.container-image.platforms.2>
-        <ingress.host>unlock-your-mind.nl</ingress.host>
+        <ingress.host>test.unlock-your-mind.nl</ingress.host> <!-- TODO remove test once ready -->
         <ingress.service>uym</ingress.service>
 
         <!-- Plugins -->
