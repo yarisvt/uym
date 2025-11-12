@@ -44,6 +44,12 @@
         <jkube.enricher.jkube-service.port>${jkube.generator.java-exec.webPort}</jkube.enricher.jkube-service.port>
         <jkube.generator.java-exec.webPort>8080</jkube.generator.java-exec.webPort>
         <jkube.generator.name>ghcr.io/yarisvt/%g:%t</jkube.generator.name>
+        <jkube.domain>unlock-your-mind.nl</jkube.domain>
+        <jkube.build.strategy>jib</jkube.build.strategy>
+        <jkube.container-image.platforms.1>linux/amd64</jkube.container-image.platforms.1>
+        <jkube.container-image.platforms.2>linux/arm64</jkube.container-image.platforms.2>
+        <ingress.host>unlock-your-mind.nl</ingress.host>
+        <ingress.service>uym</ingress.service>
 
         <!-- Plugins -->
         <openapi.generator.plugin.version>7.11.0</openapi.generator.plugin.version>
@@ -485,7 +491,7 @@
                                 </ports>
                                 <workdir>/deployments</workdir>
                                 <cmd>
-                                    <shell><![CDATA[java	-Djava.security.egd=file:/dev/./urandom -jar ${project.build.finalName}.jar]]></shell>
+                                    <shell><![CDATA[java -Djava.security.egd=file:/dev/./urandom -jar ${project.build.finalName}.jar]]></shell>
                                 </cmd>
                             </build>
                         </image>
@@ -500,9 +506,51 @@
                             </jkube-healthcheck-spring-boot>
                         </config>
                     </enricher>
+                    <resources>
+                        <controller>
+                            <imagePullSecrets>regcred</imagePullSecrets>
+                        </controller>
+                        <annotations>
+                            <ingress>
+                                <property>
+                                    <name>kubernetes.io/ingress.class</name>
+                                    <value>traefik</value>
+                                </property>
+                                <property>
+                                    <name>traefik.ingress.kubernetes.io/router.entrypoints</name>
+                                    <value>websecure</value>
+                                </property>
+                                <property>
+                                    <name>traefik.ingress.kubernetes.io/router.tls.certresolver</name>
+                                    <value>default</value>
+                                </property>
+                            </ingress>
+                        </annotations>
+                        <ingress>
+                            <ingressTlsConfigs>
+                                <ingressTlsConfig>
+                                    <hosts>
+                                        <host>${ingress.host}</host>
+                                    </hosts>
+                                </ingressTlsConfig>
+                            </ingressTlsConfigs>
+                            <ingressRules>
+                                <ingressRule>
+                                    <host>${ingress.host}</host>
+                                    <paths>
+                                        <path>
+                                            <pathType>ImplementationSpecific</pathType>
+                                            <path>/</path>
+                                            <serviceName>${jkube.enricher.jkube-service.name}</serviceName>
+                                            <servicePort>${jkube.enricher.jkube-service.port}</servicePort>
+                                        </path>
+                                    </paths>
+                                </ingressRule>
+                            </ingressRules>
+                        </ingress>
+                    </resources>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
