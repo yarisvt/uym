@@ -35,8 +35,8 @@ jobs:
           kubectl create ns $NAMESPACE || true
           kubectl config set-context --current --namespace="$NAMESPACE"
           mvn -DskipTests=true clean install
-          mvn validate k8s:resource k8s:build -Djkube.generator.registry=$CI_REGISTRY
-          mvn validate -DskipTests=true k8s:push -Djkube.docker.push.registry=$CI_REGISTRY -Djkube.docker.username=$CI_REGISTRY_USER -Djkube.docker.password=$CI_REGISTRY_PASSWORD
+          mvn validate k8s:resource k8s:build
+          mvn validate -DskipTests=true k8s:push
           IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do kubectl apply --force -f "$file"; done; IFS=$' \t\n'
           IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do kubectl wait --timeout=1800s --for=condition=Available -f "$file"; ATTEMPTS=60; until kubectl rollout status -f "$file" || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done; done; done; IFS=$' \t\n'
         env:
