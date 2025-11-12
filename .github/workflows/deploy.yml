@@ -28,8 +28,8 @@ jobs:
           sudo apt-get install -qy jq curl
           curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
           chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
-          mkdir -p $HOME/.kube
-          echo -n $KUBE_CONFIG | base64 -d > $HOME/.kube/config
+          mkdir -p ~/.kube
+          echo -n $KUBE_CONFIG | base64 -d > ~/.kube/config
           IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do sed -i "s/ENV_PLACEHOLDER/$ENVIRONMENT/g" "$file"; sed -i "s/DOMAIN_PLACEHOLDER/$QUALIFIER/g" "$file"; sed -i "s/PLACEHOLDER/$ENVIRONMENT/g" "$file"; done;IFS=$' \t\n'
           IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*.yml" ); do sed -i "s/ENV_PLACEHOLDER/$QUALIFIER/g" "$file"; sed -i "s/DOMAIN_PLACEHOLDER/$ENVIRONMENT/g" "$file"; sed -i "s/PLACEHOLDER/$ENVIRONMENT/g" "$file"; done; done; IFS=$' \t\n'
           kubectl create ns $NAMESPACE || true
