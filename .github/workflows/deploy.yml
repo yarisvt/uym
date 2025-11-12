@@ -1,4 +1,4 @@
-name: Publish Wattpad4J release
+name: Deploy UYM
 
 on:
   push:
