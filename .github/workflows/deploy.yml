@@ -24,6 +24,10 @@ jobs:
           cache: 'maven'
       - name: Deploy to k3s cluster
         run: |
+          echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+          mvn -DskipTests=true clean install
+          mvn validate k8s:resource k8s:build
+          mvn validate -DskipTests=true k8s:push
           sudo apt-get update -q
           sudo apt-get install -qy jq curl
           curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -34,9 +38,6 @@ jobs:
           IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*.yml" ); do sed -i "s/ENV_PLACEHOLDER/$QUALIFIER/g" "$file"; sed -i "s/DOMAIN_PLACEHOLDER/$ENVIRONMENT/g" "$file"; sed -i "s/PLACEHOLDER/$ENVIRONMENT/g" "$file"; done; done; IFS=$' \t\n'
           kubectl create ns $NAMESPACE || true
           kubectl config set-context --current --namespace="$NAMESPACE"
-          mvn -DskipTests=true clean install
-          mvn validate k8s:resource k8s:build
-          mvn validate -DskipTests=true k8s:push
           IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do kubectl apply --force -f "$file"; done; IFS=$' \t\n'
           IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do kubectl wait --timeout=1800s --for=condition=Available -f "$file"; ATTEMPTS=60; until kubectl rollout status -f "$file" || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done; done; done; IFS=$' \t\n'
         env:
