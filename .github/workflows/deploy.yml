@@ -24,8 +24,8 @@ jobs:
           cache: 'maven'
       - name: Deploy to k3s cluster
         run: |
-          apt-get update -q
-          apt-get install -qy jq curl
+          sudo apt-get update -q
+          sudo apt-get install -qy jq curl
           curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
           chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
           mkdir -p $HOME/.kube
