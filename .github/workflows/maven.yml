@@ -34,9 +34,10 @@ jobs:
         cache: maven
     - name: Package version with jKube
       run: |
+        rm ~/.docker/config.json
         mvn -DskipTests=true clean install
-        mvn validate k8s:resource k8s:build
-        mvn validate -DskipTests=true k8s:push
+        mvn validate k8s:resource k8s:build -Djkube.generator.registry=$CI_REGISTRY
+        mvn validate -DskipTests=true k8s:push -Djkube.docker.push.registry=$CI_REGISTRY -Djkube.docker.username=$CI_REGISTRY_USER -Djkube.docker.password=$CI_REGISTRY_PASSWORD
       env:
         CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
         CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}

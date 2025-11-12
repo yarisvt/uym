@@ -466,7 +466,7 @@
                     <images>
                         <image>
                             <name>${jkube.generator.name}</name>
-                            <registry>${env.CI_REGISTRY_IMAGE}</registry>
+                            <registry>${env.CI_REGISTRY}</registry>
                             <build>
                                 <from>eclipse-temurin:25-jre-noble</from>
                                 <assembly>
