@@ -105,6 +105,8 @@ jobs:
     steps:
       - name: Create github release
         uses: softprops/action-gh-release@v1
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
           tag_name: ${{ needs.release.outputs.tagged }}
           name: Release ${{ needs.release.outputs.tagged }}
