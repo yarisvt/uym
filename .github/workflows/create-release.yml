@@ -51,8 +51,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -66,6 +64,11 @@ jobs:
           git config user.email "yarisvt@users.noreply.github.com"
       - name: Commit release
         run: |
+          apt install -qy git ssh
+          mkdir -p /root/.ssh
+          echo ${{ secrets.SSH_DEPLOYMENT_KEY }} | base64 -d > /root/.ssh/id_rsa
+          ssh-keyscan -t rsa github.com  > /root/.ssh/known_hosts
+          chmod -R og-rwx /root/.ssh
           mvn clean
           mvn build-helper:parse-version versions:set -DnewVersion='${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}' versions:update-child-modules versions:commit
           RELEASE_VERSION=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -DforceStdout -Dexpression=project.version | tr -d '\r\n')
