@@ -92,7 +92,6 @@ jobs:
             --base main \
             --head ${{ env.RELEASE_VERSION }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
   # Create a release in GitHub with the same version as above created tag
@@ -109,5 +108,3 @@ jobs:
           draft: true
           prerelease: false
           generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
