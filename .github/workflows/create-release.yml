@@ -79,6 +79,7 @@ jobs:
           git add .
           git commit -m "chore: Release ${RELEASE_VERSION}"
           git tag -f "${RELEASE_VERSION}"
+          echo "tag_version=${RELEASE_VERSION}" >> $GITHUB_OUTPUT
           mvn build-helper:parse-version versions:set -DnewVersion='${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT' versions:commit
           NEXT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           git add .
@@ -90,6 +91,8 @@ jobs:
           git push
           git push origin "${RELEASE_VERSION}"
       - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create \
             --title "Release ${{ env.RELEASE_VERSION }}" \
@@ -97,7 +100,6 @@ jobs:
             --base main \
             --head ${{ env.RELEASE_VERSION }}
 
-  # Create a release in GitHub with the same version as above created tag
   github-release:
     needs: release
     runs-on: ubuntu-24.04
@@ -113,3 +115,43 @@ jobs:
           draft: true
           prerelease: false
           generate_release_notes: true
+
+  deploy:
+    needs: release
+    runs-on: ubuntu-24.04
+    if: ${{ needs.release.outputs.tagged }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+          architecture: x64
+          cache: 'maven'
+      - name: Deploy to k3s cluster
+        run: |
+          git checkout ${{ needs.release.outputs.tagged }}
+          echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+          mvn -DskipTests=true clean install
+          mvn validate k8s:resource k8s:build
+          mvn validate -DskipTests=true k8s:push
+          sudo apt-get update -q
+          sudo apt-get install -qy jq curl
+          curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
+          mkdir -p ~/.kube
+          echo -n $KUBE_CONFIG | base64 -d > ~/.kube/config
+          IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do sed -i "s/ENV_PLACEHOLDER/$ENVIRONMENT/g" "$file"; sed -i "s/DOMAIN_PLACEHOLDER/$QUALIFIER/g" "$file"; sed -i "s/PLACEHOLDER/$ENVIRONMENT/g" "$file"; done;IFS=$' \t\n'
+          IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*.yml" ); do sed -i "s/ENV_PLACEHOLDER/$QUALIFIER/g" "$file"; sed -i "s/DOMAIN_PLACEHOLDER/$ENVIRONMENT/g" "$file"; sed -i "s/PLACEHOLDER/$ENVIRONMENT/g" "$file"; done; done; IFS=$' \t\n'
+          kubectl create ns $NAMESPACE || true
+          kubectl config set-context --current --namespace="$NAMESPACE"
+          IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do kubectl apply --force -f "$file"; done; IFS=$' \t\n'
+          IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do kubectl wait --timeout=1800s --for=condition=Available -f "$file"; ATTEMPTS=60; until kubectl rollout status -f "$file" || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done; done; done; IFS=$' \t\n'
+        env:
+          CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
+          CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
+          CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          NAMESPACE: uym-test # TODO remove test once ready
