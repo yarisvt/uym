@@ -119,6 +119,7 @@ jobs:
           cache: 'maven'
       - name: Deploy to k3s cluster
         run: |
+          git fetch --tags
           git checkout ${{ needs.release.outputs.tagged }}
           echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
           mvn -DskipTests=true clean install
