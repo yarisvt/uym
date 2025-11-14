@@ -63,6 +63,8 @@ jobs:
           git config user.name "Yaris van Thiel"
           git config user.email "yarisvt@users.noreply.github.com"
       - name: Commit release
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
           sudo apt-get install -qy git ssh
           mkdir -p ~/.ssh
@@ -81,8 +83,8 @@ jobs:
           NEXT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           git add .
           git commit -m "chore:  prepare snapshot version ${NEXT_VERSION}"
-          git branch -f "${{ env.BRANCH_NAME }}" "origin/${{ env.BRANCH_NAME }}"
-          git checkout "${{ env.BRANCH_NAME }}"
+          git branch -f "${BRANCH_NAME}" "origin/${BRANCH_NAME}"
+          git checkout "${BRANCH_NAME}"
           git merge "release-${RELEASE_VERSION}"
           git branch -D "release-${RELEASE_VERSION}"
           git push
@@ -94,8 +96,6 @@ jobs:
             --body "This PR was created using the GitHub CLI." \
             --base main \
             --head ${{ env.RELEASE_VERSION }}
-        env:
-          BRANCH_NAME: ${{ github.ref_name }}
 
   # Create a release in GitHub with the same version as above created tag
   github-release:
