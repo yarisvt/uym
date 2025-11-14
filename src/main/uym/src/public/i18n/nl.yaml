@@ -38,15 +38,49 @@ about:
     wilde al erg lang een boek schrijven, en heb daarom gekozen om de minor
     creatief schrijven te volgen. In een half jaar tijd heb ik het boek
     geschreven, en ook fysiek uitgebracht. Mijn <a class="underline"
-    target="_blank" href="https://linktr.ee/lionsartpage">lieve broer</a>
-    heeft de fantastisch mooie cover en afbeeldingen gemaakt.
+    target="_blank" href="https://linktr.ee/lionsartpage">lieve broer</a> heeft
+    de fantastisch mooie cover en afbeeldingen gemaakt.
   published:
     book: Boek gepubliceerd
     stories: Verhalen
-books: {}
+books:
+  characters:
+    meet: Ontmoet de personages
+    narwynn: >-
+      <b>Narwynn de aanvoerder.</b> Ze werd als eerste geboren en daarom ook aangesteld
+      als leider over de Orions. Ze is heerser over alle wateren, en ze weet
+      altijd wat er in haar stromingen gebeurt. Ze draagt een prachtig gouden
+      harnas waar met rune de namen van hen die gevallen zijn in de strijd in
+      staan gekerfd.
+    sophion: >-
+      <b>Sophion de alchemist.</b> Hij heeft over het weer en de wind en geeft de
+      wereld leven en kleur. Aan elke vinger draagt hij een ring waarmee hij de
+      weersverschijnselen beheerst. Bovendien heeft hij altijd zijn woordje
+      klaar, en kan hij erg dramatisch doen.
+    jorah: >-
+      <b>Jorah de rechter.</b> Hij is verantwoordelijk voor de balans tussen goed en
+      kwaad en bewaakt de poorten van het dodenrijk, die hij Narth heeft
+      genoemd. Door middel van zijn tweesnijdend zwaard houdt hij de orde
+      zegeviert hij het recht. Hierdoor kan hij soms streng overkomen.
+    aryon: >-
+      <b>Aryon de schepper.</b> Met zijn vaardige handen en zijn bijl, Wereldkerver
+      genaamd, heeft hij de wereld vormgegeven. Het liefst bewerkt hij vele
+      steensoorten en allerlei metalen, van de grootste bergen tot de kleinste
+      juwelen. Alles maakt hij met evenveel zorg.
+    yasha: >-
+      <b>Yasha de genezer.</b> Zij is het puurst van alle Orions en zal nooit een kwaad
+      woord spreken; haar woorden zijn zelfs genezend. Haar haren kleuren mee
+      met de stand van de zon. Bovendien heeft zo ook de dieren geschapen. De
+      schepping van de draak is ze het meest trots op, dat is ook haar
+      lievelingsdier.
+    rhena: >-
+      <b>Rhena de ziener.</b> Zij is de bewaker van tijd en dromen en kan de hele
+      wereld zien. Haar geest kan zelfs door de tijd heen kijken. Echter is het
+      niet altijd duidelijk wat de betekenis is van hetgeen dat ze ziet. Na de
+      schepping van Nador gaf ze de wereld haar eigen tijd en scheidde ze de dag
+      van de nacht.
 stories:
-  by: 'Verhalen door {{userName}}'
-  numberOf: '{{numberOfStories}} Verhalen'
+  by: '{{numberOfStories}} verhalen door {{userName}}'
 story:
   read: Gelezen
   votes: Stemmen

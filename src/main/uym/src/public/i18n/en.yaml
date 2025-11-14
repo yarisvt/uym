@@ -40,10 +40,42 @@ about:
   published:
     book: Book Published
     stories: Stories
-books: {}
+books:
+  characters:
+    meet: Meet the characters
+    narwynn: >-
+      <b>Narwynn, the leader.</b> She was the first born and therefore appointed as
+      leader of the Orions. She is ruler of all the waters, and she always knows
+      what is happening in her currents. She wears beautiful golden armor,
+      inscribed with runes the names of those who have fallen in battle.
+    sophion: >-
+      <b>Sophion the alchemist.</b> He controls the weather and the wind and gives the
+      world life and color. He wears a ring on each finger with which he
+      controls the weather phenomena. Moreover, he always has his say, and he
+      can be very dramatic.
+    jorah: >-
+      <b>Jorah the judge.</b> He is responsible for the balance between good and evil
+      and guards the gates of the realm of the dead, which he has named Narth.
+      With his double-edged sword, he maintains order and upholds justice. This
+      can sometimes make him appear stern.
+    aryon: >-
+      <b>Aryon the creator.</b> With his skilled hands and his axe, called the World
+      Carver, he has shaped the world. He loves to work with many types of stone
+      and all kinds of metals, from the largest mountains to the smallest
+      jewels. He makes everything with the same care.
+    yasha: >-
+      <b>Yasha the healer.</b> She is the purest of all Orions and will never speak an
+      evil word; her words are even healing. Her hair changes color with the
+      position of the sun. Moreover, she also created the animals in this way.
+      She is most proud of the creation of the dragon, which is also her
+      favorite animal.
+    rhena: >-
+      <b>Rhena the seer.</b> She is the keeper of time and dreams and can see the
+      entire world. Her spirit can even see through time. However, the meaning
+      of what she sees is not always clear. After the creation of Nador, she
+      gave the world its own time and separated day from night.
 stories:
-  by: 'Stories by {{userName}}'
-  numberOf: '{{numberOfStories}} Stories'
+  by: '{{numberOfStories}} stories by {{userName}}'
 story:
   read: Read
   votes: Votes

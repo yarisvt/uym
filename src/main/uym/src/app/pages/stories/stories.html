@@ -3,15 +3,12 @@
 <div class="flex justify-center">
 	<div class="sm:max-w-[90vw] lg:max-w-[100vw]">
 		<div class="ml-3">
-			<div class="text-xl xl:text-2xl 2xl:text-3xl">
-				{{'stories.by' | translate:{userName} }}
-			</div>
-			<div class="text-md xl:text-lg 2xl:text-xl text-gray-600">
-				{{'stories.numberOf' | translate:{numberOfStories} }}
+			<div class="text-xl lg:text-4xl xl:text-6xl">
+				{{'stories.by' | translate:{userName,numberOfStories} }}
 			</div>
 		</div>
 		<div
-			class="grid grid-cols-1 force-2-rows xl:grid-cols-2 force-3-rows gap-4"
+			class="grid grid-cols-1 xl:grid-cols-2 force-2-rows force-3-rows gap-4"
 		>
 			@for (story of stories(); track story) {
 			<div class="col-span-1 p-2">
