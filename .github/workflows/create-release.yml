@@ -9,11 +9,7 @@ permissions:
 
 jobs:
 
-  # Validate job will check if the current version is actually a *-SNAPSHOT, if not, this flow cannot be used.
-  # Outputs:
-  #   `version`: the current version of the Wattpad4J
   validate:
-    # restrict access to this job
     if: contains('["yarisvt"]', github.actor)
     runs-on: ubuntu-24.04
     outputs:
@@ -47,10 +43,7 @@ jobs:
             echo "Release version is correct (contains -SNAPSHOT)"
           fi
 
-  # Set version will set the stable version number the same as the input variable `desired_version` of the workflow.
-  # Outputs:
-  #  - `tagged`: the full version number that was used, including any postfix set like 'RC1'
-  set-version-and-create-pr:
+  release:
     needs: validate
     runs-on: ubuntu-24.04
     outputs:
@@ -58,6 +51,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -67,84 +62,52 @@ jobs:
           cache: 'maven'
       - name: Configure Git
         run: |
-          git config user.name "GitHub Actions"
+          git config user.name "Yaris van Thiel"
           git config user.email "yarisvt@users.noreply.github.com"
-      - name: Set release version
-        id: set_version
-        run: |
-          mvn build-helper:parse-version versions:set -DnewVersion='${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}' versions:update-child-modules versions:commit
-          RELEASE_VERSION=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -DforceStdout -Dexpression=project.version | tr -d '\r\n')
-          echo "Setting project version: ${RELEASE_VERSION}"
-          echo "RELEASE_VERSION=${RELEASE_VERSION}" >> $GITHUB_ENV
-          echo "tag_version=${RELEASE_VERSION}" >> $GITHUB_OUTPUT
       - name: Commit release
         run: |
+          mvn clean
+          mvn build-helper:parse-version versions:set -DnewVersion='${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}' versions:update-child-modules versions:commit
+          RELEASE_VERSION=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -DforceStdout -Dexpression=project.version | tr -d '\r\n')
+          echo "RELEASE_VERSION=${RELEASE_VERSION}" >> $GITHUB_ENV
+          git checkout -b "release-${RELEASE_VERSION}"
           git add .
-          git commit -m "chore: prepare release ${{ env.RELEASE_VERSION }}"
+          git commit -m "chore: Release ${RELEASE_VERSION}"
+          git tag -f "${RELEASE_VERSION}"
+          mvn build-helper:parse-version versions:set -DnewVersion='${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT' versions:commit
+          NEXT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          git add .
+          git commit -m "chore:  prepare snapshot version ${NEXT_VERSION}"
+          git branch -f "${BRANCH_NAME}" "origin/${BRANCH_NAME}"
+          git checkout "${BRANCH_NAME}"
+          git merge "release-${RELEASE_VERSION}"
+          git branch -D "release-${RELEASE_VERSION}"
           git push
-      - name: Tagging stable release
-        run: |
-          git tag ${{ env.RELEASE_VERSION }}
-          git push origin ${{ env.RELEASE_VERSION }}
+          git push origin "${RELEASE_VERSION}"
       - name: Create Pull Request
         run: |
-          git checkout -b release-${{ env.RELEASE_VERSION }}
-          git push --set-upstream origin release-${{ env.RELEASE_VERSION }}
           gh pr create \
             --title "Release ${{ env.RELEASE_VERSION }}" \
             --body "This PR was created using the GitHub CLI." \
             --base main \
-            --head release-${{ env.RELEASE_VERSION }}
+            --head ${{ env.RELEASE_VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
-  # Create a release in GitHub with the same version as the Wattpad4J release.
+  # Create a release in GitHub with the same version as above created tag
   github-release:
-    needs: set-version-and-create-pr
+    needs: release
     runs-on: ubuntu-24.04
-    if: ${{ needs.set-version-and-create-pr.outputs.tagged }}
+    if: ${{ needs.release.outputs.tagged }}
     steps:
       - name: Create github release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ needs.set-version-and-create-pr.outputs.tagged }}
-          name: Release ${{ needs.set-version-and-create-pr.outputs.tagged }}
+          tag_name: ${{ needs.release.outputs.tagged }}
+          name: Release ${{ needs.release.outputs.tagged }}
           draft: true
           prerelease: false
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # Changes the version of Wattpad4J to the next desired *-SNAPSHOT version.
-  # If the postfix was set, then the version will be reverted to the one discovered in the `validate`-job,
-  # otherwise the Maven versions plugin is used to set the next snapshot version.
-  prepare-next:
-    needs:
-      - validate
-      - set-version-and-create-pr
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '25'
-          architecture: x64
-          cache: 'maven'
-      - name: Configure Git
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "yarisvt@users.noreply.github.com"
-          git pull
-      - name: Prepare next build phase
-        run: |
-          mvn build-helper:parse-version versions:set -DnewVersion='${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT' versions:commit
-          NEXT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "NEXT_VERSION=${NEXT_VERSION}" >> $GITHUB_ENV
-      - name: Pushing committed snapshot
-        run: |
-          git add .
-          git commit -m "chore: prepare snapshot version ${{ env.NEXT_VERSION }}"
-          git push
