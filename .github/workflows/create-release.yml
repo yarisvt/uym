@@ -90,15 +90,6 @@ jobs:
           git branch -D "release-${RELEASE_VERSION}"
           git push
           git push origin "${RELEASE_VERSION}"
-      - name: Create Pull Request
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh pr create \
-            --title "Release ${{ env.RELEASE_VERSION }}" \
-            --body "This PR was created using the GitHub CLI." \
-            --base main \
-            --head ${{ env.RELEASE_VERSION }}
 
   github-release:
     needs: release
