@@ -9,7 +9,7 @@
     </parent>
     <groupId>nl.uym</groupId>
     <artifactId>uym</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>UYM</name>
     <description>Unlock Your Mind</description>
     <developers>
