@@ -55,14 +55,17 @@ body {
 }
 
 @media (width >= 68rem) {
-	.force-2-rows {
+	.\33xl-2-rows {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }
 
 @media (width >= 118rem) {
-	.force-3-rows {
+	.\34xl-3-rows {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		max-width: 90vw;
+	}
+	.\34xl-min-w-25vw {
+		min-width: 25vw;
 	}
 }

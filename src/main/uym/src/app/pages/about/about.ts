@@ -13,5 +13,5 @@ import { User } from '../../../api';
 export class About {
 
 
-	readonly user = input.required<User>()
+	readonly user = input<User | null>()
 }

@@ -14,7 +14,7 @@ import { StoryCard } from './components/story-card/story-card';
 })
 export class Stories {
 
-	readonly stories = input.required<Story[]>()
-	readonly user = input.required<User>()
+	readonly stories = input<Story[] | null>()
+	readonly user = input<User | null>()
 
 }

@@ -1,34 +1,42 @@
 <header
-	class="flex justify-between items-center pt-2 pb-2 flex-row select-none text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"
+	class="text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl 2xl:text-3xl pt-2 pb-2 flex-row select-none"
 >
-	<div class="grow-1 ml-1 mr-1 md:ml-5 md:mr-15 flex items-center flex-col">
-		<p>Unlock Your</p>
-		<p>Mind</p>
-	</div>
-	<div class="grow-1 flex gap-4 lg:gap-12 items-center">
-		<a routerLink="" fragment="home">{{ 'links.home' | translate }}</a>
-		<a routerLink="" fragment="about">{{ 'links.about' | translate }}</a>
-		<a routerLink="" fragment="books">{{ 'links.books' | translate }}</a>
-		<a routerLink="" fragment="stories"
-			>{{ 'links.stories' | translate }}</a
+	<div class="mt-2 flex justify-between items-center">
+		<div
+			class="grow-1 ml-1 mr-1 md:ml-5 md:mr-15 flex items-center flex-col"
 		>
-	</div>
-	<div class="md:grow-20"></div>
-	<div class="sticky">
-		<select
-			id="language"
-			[(ngModel)]="selectedLanguage"
-			(change)="switchLanguage($event, selectedLanguage)"
-		>
-			@for (language of languages; track language) {
-			<option
-				class="background-color-landing"
-				[pTooltip]="language.name"
-				[ngValue]="language"
+			<p>Unlock Your</p>
+			<p>Mind</p>
+		</div>
+		<div class="grow-1 flex gap-4 lg:gap-12 items-center">
+			<a routerLink="" fragment="home">{{ 'links.home' | translate }}</a>
+			<a routerLink="" fragment="about"
+				>{{ 'links.about' | translate }}</a
 			>
-				{{ language.flag }}
-			</option>
-			}
-		</select>
+			<a routerLink="" fragment="books"
+				>{{ 'links.books' | translate }}</a
+			>
+			<a routerLink="" fragment="stories"
+				>{{ 'links.stories' | translate }}</a
+			>
+		</div>
+		<div class="md:grow-20"></div>
+		<div class="mr-5">
+			<select
+				id="language"
+				[(ngModel)]="selectedLanguage"
+				(change)="switchLanguage($event, selectedLanguage)"
+			>
+				@for (language of languages; track language) {
+				<option
+					class="background-color-landing"
+					[pTooltip]="language.name"
+					[ngValue]="language"
+				>
+					{{ language.flag }}
+				</option>
+				}
+			</select>
+		</div>
 	</div>
 </header>

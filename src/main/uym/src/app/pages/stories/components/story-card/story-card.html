@@ -1,12 +1,12 @@
 @let s = story();
 <div
-	class="p-2 h-full flex flex-row items-start border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded-md"
+	class="p-2 h-full flex flex-row items-start rounded-md shadow-md shadow-gray-300"
 >
 	<div class="flex justify-center rounded">
 		<div class="">
 			<a [href]="s.url" target="_blank">
 				<img
-					class="rounded max-w-[35vw] lg:max-w-[80vw] xl:max-w-[80vw] 2xl:max-w-[100vw] 2xl:min-h-[30vh]"
+					class="rounded max-w-[35vw] lg:max-w-[20vw] xl:max-w-[80vw] 2xl:max-w-[100vw] 2xl:min-h-[30vh]"
 					[src]="s.cover"
 					[alt]="s.title"
 				/>
@@ -23,7 +23,7 @@
 				<a
 					[href]="s.url"
 					target="_blank"
-					class="text-base sm:text-xl mt-1 hover:underline"
+					class="text-base sm:text-xl md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl mt-1 hover:underline"
 				>
 					{{ s.title }}
 				</a>
@@ -33,25 +33,25 @@
 			<i class="pi pi-eye text-black-500"></i>
 			<span
 				[pTooltip]="'story.votes' | translate"
-				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl"
 				>{{ s.readCount }}</span
 			>
 			<i class="pi pi-star text-black"></i>
 			<span
 				[pTooltip]="'story.votes' | translate"
-				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl"
 				>{{ s.voteCount }}</span
 			>
 			<i class="pi pi-list text-black"></i>
 			<span
 				[pTooltip]="'story.parts' | translate"
-				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base"
-				>{{ s.numParts }}</span
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl"
+				>{{ s.partsCount }}</span
 			>
 		</div>
 		<div class="flex flex-col mt-4">
 			<span
-				class="text-gray-600 font-semibold text-justify text-sm sm:text-base md:text-lg lg:text-base"
+				class="text-gray-600 font-semibold text-justify text-sm sm:text-base md:text-xl lg:text-base xl:text-xl 2xl:text-2xl"
 				>{{ s.description }}</span
 			>
 		</div>

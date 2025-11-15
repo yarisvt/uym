@@ -31,11 +31,11 @@ public class WattpadUserToUserConverter implements Converter<WattpadUser, User> 
 		        .location(source.getLocation())
 		        .website(source.getWebsite())
 		        .votesReceived(source.getVotesReceived())
-		        .numStoriesPublished(source.getNumStoriesPublished())
-		        .numFollowing(source.getNumFollowing())
-		        .numFollowers(source.getNumFollowers())
-		        .numMessages(source.getNumMessages())
-		        .numLists(source.getNumLists())
+		        .publishedStoriesCount(source.getNumStoriesPublished())
+		        .followingCount(source.getNumFollowing())
+		        .followersCount(source.getNumFollowers())
+		        .messagesCount(source.getNumMessages())
+		        .listsCount(source.getNumLists())
 		        .build();
 	}
 }

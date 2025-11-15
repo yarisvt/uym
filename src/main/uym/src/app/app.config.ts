@@ -30,12 +30,10 @@ class TranslateYamlHttpLoader implements TranslateLoader {
 
 
 	public getTranslation(lang : string) : Observable<TranslationObject> {
-		console.log('lang', lang)
 		return this.http
 			.get(`${this.path}${lang}.yaml`, { responseType: 'text' })
 			.pipe(map((data) => {
 				const a = parse(data);
-				console.log(a)
 				return a;
 			}));
 	}

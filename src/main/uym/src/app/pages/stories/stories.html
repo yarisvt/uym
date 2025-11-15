@@ -1,14 +1,17 @@
-@let userName = user().name; @let numberOfStories = stories().length;
+@let userName = user()?.name || 'Unlock Your Mind'; @let numberOfStories =
+stories()?.length ?? 15;
 
-<div class="flex justify-center">
-	<div class="sm:max-w-[90vw] lg:max-w-[100vw]">
+<div class="flex justify-center h-full mb-20">
+	<div class="w-[90vw]">
 		<div class="ml-3">
-			<div class="text-xl lg:text-4xl xl:text-6xl">
+			<div
+				class="text-2xl sm:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl"
+			>
 				{{'stories.by' | translate:{userName,numberOfStories} }}
 			</div>
 		</div>
 		<div
-			class="grid grid-cols-1 xl:grid-cols-2 force-2-rows force-3-rows gap-4"
+			class="grid grid-cols-1 lg:grid-cols-2 3xl-2-rows 4xl-3-rows gap-4 w-full"
 		>
 			@for (story of stories(); track story) {
 			<div class="col-span-1 p-2">

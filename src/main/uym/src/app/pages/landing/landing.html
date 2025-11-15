@@ -1,4 +1,4 @@
-@let u = user | async; @let s = stories | async; @if (u && s) {
+@let u = user | async; @let s = stories | async;
 
 <div class="w-full h-full background-color-landing">
 	<app-header></app-header>
@@ -8,5 +8,3 @@
 	<app-stories [stories]="s" [user]="u" id="stories"></app-stories>
 	<app-footer></app-footer>
 </div>
-
-}

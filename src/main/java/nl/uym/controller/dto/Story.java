@@ -24,35 +24,34 @@ import lombok.extern.jackson.Jacksonized;
 public class Story {
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "Wattpad ID of the story", requiredMode = Schema.RequiredMode.REQUIRED)
 	private final String id;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "Title of the story", requiredMode = Schema.RequiredMode.REQUIRED)
 	private final String title;
 
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@NotNull
+	@Schema(title = "URL to the story", requiredMode = Schema.RequiredMode.REQUIRED)
+	private final String url;
+
+	@Schema(title = "Number of votes", requiredMode = Schema.RequiredMode.REQUIRED)
 	private final int voteCount;
 
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "Number of comments", requiredMode = Schema.RequiredMode.REQUIRED)
 	private final int commentCount;
 
+	@Schema(title = "Number of times the story is read", requiredMode = Schema.RequiredMode.REQUIRED)
+	private final long readCount;
+
+	@Schema(title = "Number of parts the story has", requiredMode = Schema.RequiredMode.REQUIRED)
+	private final int partsCount;
+
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "Description of the story", requiredMode = Schema.RequiredMode.REQUIRED)
 	private final String description;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "URL of the cover image", requiredMode = Schema.RequiredMode.REQUIRED)
 	private final URL cover;
-
-	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private final String url;
-
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private final int numParts;
-
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private final long readCount;
-
 }

@@ -1,54 +1,58 @@
 <div
-	class="h-full select-none flex items-center justify-center flex-col lg:flex-row xl:mt-30"
+	class="h-full select-none flex items-center justify-center flex-col xl:mt-30"
 >
 	<div class="flex items-center justify-around flex-col h-full">
 		<div class="flex items-center flex-col">
 			<p
-				class="text-base sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl lg:mt-10 mb-4 lg:mb-5 color-title"
+				class="text-lg sm:text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl lg:mt-10 mb-2 lg:mb-5 color-title"
 			>
 				{{'about.title' | translate}}
 			</p>
 			<p
-				class="text-2xl sm:text-3xl lg:text-4xl xl:text-6xl 2xl:text-7xl mb-10"
+				class="text-2xl sm:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl mb-5"
 			>
 				{{'about.subTitle' | translate}}
 			</p>
 			<p
-				class="text-xs sm:text-base lg:text-base xl:text-xl 2xl:text-2xl pl-4 pr-4 mb-5 text-justify w-[80vw] lg:w-[60vw]"
+				class="text-base sm:text-xl md:text-2xl xl:text-3xl pl-4 pr-4 mb-5 text-justify w-[80vw]"
 			>
 				{{'about.description1' | translate}}
 			</p>
 			<p
-				class="text-xs sm:text-base lg:text-base xl:text-xl 2xl:text-2xl pl-4 pr-4 text-justify w-[80vw] lg:w-[60vw]"
+				class="text-base sm:text-xl md:text-2xl xl:text-3xl pl-4 pr-4 text-justify w-[80vw]"
 				[innerHTML]="'about.description2' | translate"
 			></p>
 		</div>
 		<div
-			class="flex flex-row border-b-2 border-t-2 count-border-color mt-10 xl:mt-20 w-[70vw] lg:w-[50vw]"
+			class="flex flex-row border-b-2 border-t-2 count-border-color mt-10 xl:mt-20 w-[70vw]"
 		>
 			<div
 				class="grow-1 flex items-center justify-center border-r-2 count-border-color"
 			>
 				<p
-					class="text-xl sm:text-3xl lg:text-5xl xl:text-6xl color-title"
+					class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl color-title"
 				>
 					1
 				</p>
-				<p class="text-sm sm:text-lg lg:text-2xl x:text-4xl ml-2">
+				<p
+					class="text-base sm:text-xl md:text-2xl xl:text-3xl x:text-4xl ml-2"
+				>
 					{{'about.published.book' | translate}}
 				</p>
 			</div>
 			<div class="grow-1 flex items-center justify-center">
 				<p
-					class="text-xl sm:text-3xl lg:text-5xl xl:text-6xl color-title"
+					class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl color-title"
 				>
-					{{ user().numStoriesPublished }}
+					{{ user()?.publishedStoriesCount ?? 15 }}
 				</p>
-				<p class="text-sm sm:text-lg lg:text-2xl x:text-4xl ml-2">
+				<p
+					class="text-base sm:text-xl md:text-2xl xl:text-3xl x:text-4xl ml-2"
+				>
 					{{'about.published.stories' | translate}}
 				</p>
 			</div>
 		</div>
-		<div class="h-[10vh] sm:h-[15vh]"></div>
+		<div class="h-[10vh]"></div>
 	</div>
 </div>

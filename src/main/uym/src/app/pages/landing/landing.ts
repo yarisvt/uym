@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { About } from '../about/about';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { Story, User, WattpadControllerService } from '../../../api';
+import { Story, User, WattpadAPIService } from '../../../api';
 import { Footer } from './components/footer/footer';
 import { Stories } from '../stories/stories';
 import { Header } from './components/header/header';
@@ -29,7 +29,7 @@ export class Landing implements OnInit {
 	stories ? : Observable<Story[]>
 	user ? : Observable<User>
 
-	constructor(private activatedRoute : ActivatedRoute, private wattpadController : WattpadControllerService) {
+	constructor(private activatedRoute : ActivatedRoute, private wattpadController : WattpadAPIService) {
 	}
 
 	ngOnInit() {

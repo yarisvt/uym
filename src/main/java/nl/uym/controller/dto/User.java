@@ -24,55 +24,55 @@ import lombok.extern.jackson.Jacksonized;
 public class User {
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private String username;
-
-	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private URL avatar;
-
-	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private URL backgroundUrl;
-
-	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "Name of the user", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String name;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "Username of the user", requiredMode = Schema.RequiredMode.REQUIRED)
+	private String username;
+
+	@NotNull
+	@Schema(title = "Description of the user", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String description;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "Location of the user", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String location;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "URL to the avatar", requiredMode = Schema.RequiredMode.REQUIRED)
+	private URL avatar;
+
+	@NotNull
+	@Schema(title = "URL to the background", requiredMode = Schema.RequiredMode.REQUIRED)
+	private URL backgroundUrl;
+
+	@NotNull
+	@Schema(title = "URL to the website", requiredMode = Schema.RequiredMode.REQUIRED)
 	private URL website;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
+	@Schema(title = "Number of votes received", requiredMode = Schema.RequiredMode.REQUIRED)
 	private Long votesReceived;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private Integer numStoriesPublished;
+	@Schema(title = "Number of stories published", requiredMode = Schema.RequiredMode.REQUIRED)
+	private Integer publishedStoriesCount;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private Integer numFollowing;
+	@Schema(title = "Number of following", requiredMode = Schema.RequiredMode.REQUIRED)
+	private Integer followingCount;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private Integer numFollowers;
+	@Schema(title = "Number of followers", requiredMode = Schema.RequiredMode.REQUIRED)
+	private Integer followersCount;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private Integer numMessages;
+	@Schema(title = "Number of messages", requiredMode = Schema.RequiredMode.REQUIRED)
+	private Integer messagesCount;
 
 	@NotNull
-	@Schema(requiredMode = Schema.RequiredMode.REQUIRED)
-	private Integer numLists;
+	@Schema(title = "Number of lists", requiredMode = Schema.RequiredMode.REQUIRED)
+	private Integer listsCount;
 
 }

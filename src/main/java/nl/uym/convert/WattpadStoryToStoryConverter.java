@@ -30,7 +30,7 @@ public class WattpadStoryToStoryConverter implements Converter<WattpadStory, Sto
 		        .description(source.getDescription())
 		        .cover(source.getCover())
 		        .url(source.getUrl())
-		        .numParts(source.getNumParts())
+		        .partsCount(source.getNumParts())
 		        .readCount(source.getReadCount())
 		        .build();
 	}
