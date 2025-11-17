@@ -16,7 +16,7 @@
 		</rollingPolicy>
 
 		<encoder>
-			<pattern><![CDATA[%d{HH:mm:ss} %-5p %-40.40logger{39} - %replace(%m){'[\r\n]+', '$0--- '}%n%wEx]]></pattern>
+			<pattern><![CDATA[%d{yyyy-MM-dd HH:mm:ss} %-5p %-40.40logger{39} - %replace(%m){'[\r\n]+', '$0--- '}%n%wEx]]></pattern>
 		</encoder>
 	</appender>
 
@@ -25,7 +25,7 @@
 		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
 			by default -->
 		<encoder>
-			<pattern><![CDATA[%clr(%d{HH:mm:ss}){faint} %clr(%-5p) %clr(%-40.40logger{39}){cyan} %clr(-){faint} %replace(%m){'[\r\n]+', '$0--- '}%n%wEx]]></pattern>
+			<pattern><![CDATA[%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr(%-5p) %clr(%-40.40logger{39}){cyan} %clr(-){faint} %replace(%m){'[\r\n]+', '$0--- '}%n%wEx]]></pattern>
 		</encoder>
 	</appender>
 	<logger name="org.springframework.security" level="WARN" />
