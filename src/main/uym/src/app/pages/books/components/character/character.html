@@ -1,13 +1,13 @@
 <div class="mb-5 h-full shadow-md shadow-gray-300">
 	<div class="flex items-center justify-center flex-col">
 		<img
-			class="sm:min-w-[80vw] lg:min-w-[40vw] 4xl-min-w-25vw"
+			class="sm:min-w-[80vw] lg:min-w-[40vw] xl:min-w-[30vw] 2xl:min-w-[40w] 4xl-min-w-25vw"
 			[src]="imagePath()"
 			[alt]="name()"
 		/>
 	</div>
 	<div
-		class="mt-2 pl-10 pr-10 text-justify text-base sm:text-xl md:text-2xl xl:text-3xl"
+		class="mt-2 pl-10 pr-10 text-justify text-base sm:text-xl md:text-2xl 2xl:text-3xl"
 	>
 		<span [innerHTML]="'books.characters.' + name() | translate"></span>
 	</div>

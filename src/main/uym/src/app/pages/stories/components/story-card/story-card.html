@@ -23,7 +23,7 @@
 				<a
 					[href]="s.url"
 					target="_blank"
-					class="text-base sm:text-xl md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl mt-1 hover:underline"
+					class="text-base sm:text-xl md:text-2xl lg:text-xl 2xl:text-3xl mt-1 hover:underline"
 				>
 					{{ s.title }}
 				</a>
@@ -33,25 +33,25 @@
 			<i class="pi pi-eye text-black-500"></i>
 			<span
 				[pTooltip]="'story.votes' | translate"
-				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl"
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base 2xl:text-xl"
 				>{{ s.readCount }}</span
 			>
 			<i class="pi pi-star text-black"></i>
 			<span
 				[pTooltip]="'story.votes' | translate"
-				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl"
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base 2xl:text-xl"
 				>{{ s.voteCount }}</span
 			>
 			<i class="pi pi-list text-black"></i>
 			<span
 				[pTooltip]="'story.parts' | translate"
-				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl"
+				class="text-surface-900 text-xs sm:text-base md:text-lg lg:text-base 2xl:text-xl"
 				>{{ s.partsCount }}</span
 			>
 		</div>
 		<div class="flex flex-col mt-4">
 			<span
-				class="text-gray-600 font-semibold text-justify text-sm sm:text-base md:text-xl lg:text-base xl:text-xl 2xl:text-2xl"
+				class="text-gray-600 font-semibold text-justify text-sm sm:text-base md:text-xl lg:text-base 2xl:text-2xl"
 				>{{ s.description }}</span
 			>
 		</div>
