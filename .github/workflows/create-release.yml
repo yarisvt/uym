@@ -125,26 +125,31 @@ jobs:
           mvn -DskipTests=true clean install
           mvn validate k8s:resource k8s:build
           mvn validate -DskipTests=true k8s:push
-          sudo apt-get update -q
-          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 ssh
+          sudo apt-get update -q > /dev/null
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 ssh > /dev/null
           echo creating ssh directory
-          sudo mkdir ~/.ssh
+          sudo mkdir -p ~/.ssh
           echo setting wg0 conf
-          echo "$WG0_CONF" | base64 -d | sudo tee -a /etc/wireguard/wg0.conf >/dev/null
+          echo "$WG0_CONF" | base64 -d | sudo tee -a /etc/wireguard/wg0.conf > /dev/null
           echo setting ssh private key
-          echo "$SSH_PRIVATE_KEY" | base64 -d | sudo tee -a ~/.ssh/id_ed25519 >/dev/null
+          echo "$SSH_PRIVATE_KEY" | base64 -d | sudo tee -a ~/.ssh/id_ed25519 > /dev/null
           sudo chmod go-r ~/.ssh/id_ed25519
           echo adding ssh key
           ssh-keyscan -H "$SSH_HOST"  | sudo tee -a ~/.ssh/known_hosts
+          cd target/classes/META-INF/jkube
+          ls
           echo copying files
+          echo "$SSH_USER"@"$SSH_HOST"
           IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do scp "$file" "$SSH_USER"@"$SSH_HOST":"$file"; done; IFS=$' \t\n'
+          echo copied first
           IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do scp -p "$file" "$SSH_USER"@"$SSH_HOST":"$(basename "$file")"; done; done; IFS=$' \t\n'
+          echo copied second
           echo logging into ssh
-          ssh -o SendEnv=NAMESPACE  "$SSH_USER"@"$SSH_HOST"
-          kubectl create ns $NAMESPACE || true
-          kubectl config set-context --current --namespace="$NAMESPACE"
-          IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do kubectl apply --force -f "$file"; done; IFS=$' \t\n'
-          IFS=$'\n'; for file in $( find -type f -name "*-deployment.yml" ); do kubectl wait --timeout=1800s --for=condition=Available -f "$file"; ATTEMPTS=60; until kubectl rollout status -f "$file" || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done; done; IFS=$' \t\n'
+          ssh "$SSH_USER"@"$SSH_HOST" ls
+          ssh "$SSH_USER"@"$SSH_HOST" kubectl create ns $NAMESPACE || true
+          ssh "$SSH_USER"@"$SSH_HOST" kubectl config set-context --current --namespace="$NAMESPACE"
+          ssh "$SSH_USER"@"$SSH_HOST" IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do kubectl apply --force -f "$file"; done; IFS=$' \t\n'
+          ssh "$SSH_USER"@"$SSH_HOST" IFS=$'\n'; for file in $( find -type f -name "*-deployment.yml" ); do kubectl wait --timeout=1800s --for=condition=Available -f "$file"; ATTEMPTS=60; until kubectl rollout status -f "$file" || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done; done; IFS=$' \t\n'
         env:
           CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
           CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
