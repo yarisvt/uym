@@ -129,8 +129,8 @@ jobs:
           DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 ssh
           sudo apt install -y wireguard iproute2 ssh
           sudo mkdir ~/.ssh
-          echo "$WG0_CONF" | base64 -d | sudo tee -a /etc/wireguard/wg0.conf
-          echo "$SSH_PRIVATE_KEY" | base64 -d | sudo tee -a ~/.ssh/id_ed25519
+          echo "$WG0_CONF" | base64 -d | sudo tee -a /etc/wireguard/wg0.conf >/dev/null
+          echo "$SSH_PRIVATE_KEY" | base64 -d | sudo tee -a ~/.ssh/id_ed25519 >/dev/null
           sudo chmod go-r ~/.ssh/id_ed25519
           ssh-keyscan -H "$SSH_HOST"  | sudo tee -a ~/.ssh/known_hosts
           IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do scp "$file" "$SSH_USER"@"$SSH_HOST":"$file"; done; IFS=$' \t\n'
