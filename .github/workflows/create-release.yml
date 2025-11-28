@@ -127,16 +127,14 @@ jobs:
           mvn --no-transfer-progress -B validate -DskipTests=true k8s:push
           sudo apt-get update -q > /dev/null
           DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 ssh iptables > /dev/null
-          echo creating ssh directory
           sudo mkdir -p ~/.ssh
-          echo setting wg0 conf
           echo "$WG0_CONF" | base64 -d | sudo tee -a /etc/wireguard/wg0.conf > /dev/null
           sudo wg-quick up wg0
-          echo setting ssh private key
-          echo "$SSH_PRIVATE_KEY" | base64 -d | tee -a ~/.ssh/uym_github > /dev/null
+          ls -l ~/.ssh
+          echo "$SSH_PRIVATE_KEY" | base64 -d | sudo tee -a ~/.ssh/uym_github > /dev/null
+          sudo chown -R $(whoami):$(whoami) ~/.ssh
           chmod 700 ~/.ssh/uym_github
           ls -l ~/.ssh
-          echo adding ssh key
           ssh-keyscan -H "$SSH_HOST"  | sudo tee -a ~/.ssh/known_hosts > /dev/null
           cd target/classes/META-INF/jkube
           echo copying files
