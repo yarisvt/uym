@@ -126,20 +126,24 @@ jobs:
           mvn validate k8s:resource k8s:build
           mvn validate -DskipTests=true k8s:push
           sudo apt-get update -q
-          sudo apt-get install -qy jq curl
-          curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
-          mkdir -p ~/.kube
-          echo -n $KUBE_CONFIG | base64 -d > ~/.kube/config
-          IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do sed -i "s/ENV_PLACEHOLDER/$ENVIRONMENT/g" "$file"; sed -i "s/DOMAIN_PLACEHOLDER/$QUALIFIER/g" "$file"; sed -i "s/PLACEHOLDER/$ENVIRONMENT/g" "$file"; done;IFS=$' \t\n'
-          IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*.yml" ); do sed -i "s/ENV_PLACEHOLDER/$QUALIFIER/g" "$file"; sed -i "s/DOMAIN_PLACEHOLDER/$ENVIRONMENT/g" "$file"; sed -i "s/PLACEHOLDER/$ENVIRONMENT/g" "$file"; done; done; IFS=$' \t\n'
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 ssh jq curl
+          echo "$WG0_CONF" | base64 -d > /etc/wireguard/wg0.conf
+          echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/id_ed25519
+          chmod go-r ~/.ssh/id_ed25519
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do scp "$file" "$SSH_USER"@"$SSH_HOST":"$file"; done; IFS=$' \t\n'
+          IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do scp -p "$file" "$SSH_USER"@"$SSH_HOST":"$(basename "$file")"; done; done; IFS=$' \t\n'
+          ssh -o SendEnv=NAMESPACE  "$SSH_USER"@"$SSH_HOST"
           kubectl create ns $NAMESPACE || true
           kubectl config set-context --current --namespace="$NAMESPACE"
           IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do kubectl apply --force -f "$file"; done; IFS=$' \t\n'
-          IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do kubectl wait --timeout=1800s --for=condition=Available -f "$file"; ATTEMPTS=60; until kubectl rollout status -f "$file" || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done; done; done; IFS=$' \t\n'
+          IFS=$'\n'; for file in $( find -type f -name "*-deployment.yml" ); do kubectl wait --timeout=1800s --for=condition=Available -f "$file"; ATTEMPTS=60; until kubectl rollout status -f "$file" || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done; done; IFS=$' \t\n'
         env:
           CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
           CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
           CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          WG0_CONF: ${{ secrets.WG0_CONF }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
           NAMESPACE: uym-test # TODO remove test once ready
