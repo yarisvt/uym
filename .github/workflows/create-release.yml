@@ -141,7 +141,6 @@ jobs:
           ssh -i ~/.ssh/uym_github -o SendEnv=NAMESPACE "$SSH_USER"@"$SSH_HOST" kubectl create ns $NAMESPACE || true
           ssh -i ~/.ssh/uym_github -o SendEnv=NAMESPACE "$SSH_USER"@"$SSH_HOST" kubectl config set-context --current --namespace="$NAMESPACE"
           ssh -i ~/.ssh/uym_github "$SSH_USER"@"$SSH_HOST" kubectl apply --force -f kubernetes.yml
-          ssh -i ~/.ssh/uym_github "$SSH_USER"@"$SSH_HOST" kubectl wait --timeout=1800s --for=condition=Available -f uym-deployment.yml; ATTEMPTS=60; until kubectl rollout status -f uym-deployment.yml || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done
         env:
           CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
           CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
