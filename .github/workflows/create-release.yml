@@ -126,11 +126,13 @@ jobs:
           mvn validate k8s:resource k8s:build
           mvn validate -DskipTests=true k8s:push
           sudo apt-get update -q
-          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 ssh jq curl
-          echo "$WG0_CONF" | base64 -d > /etc/wireguard/wg0.conf
-          echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/id_ed25519
-          chmod go-r ~/.ssh/id_ed25519
-          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 ssh
+          sudo apt install -y wireguard iproute2 ssh
+          sudo mkdir ~/.ssh
+          echo "$WG0_CONF" | base64 -d | sudo tee -a /etc/wireguard/wg0.conf
+          echo "$SSH_PRIVATE_KEY" | base64 -d | sudo tee -a ~/.ssh/id_ed25519
+          sudo chmod go-r ~/.ssh/id_ed25519
+          ssh-keyscan -H "$SSH_HOST"  | sudo tee -a ~/.ssh/known_hosts
           IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do scp "$file" "$SSH_USER"@"$SSH_HOST":"$file"; done; IFS=$' \t\n'
           IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do scp -p "$file" "$SSH_USER"@"$SSH_HOST":"$(basename "$file")"; done; done; IFS=$' \t\n'
           ssh -o SendEnv=NAMESPACE  "$SSH_USER"@"$SSH_HOST"
