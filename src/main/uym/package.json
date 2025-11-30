@@ -1,6 +1,6 @@
 {
   "name": "uym",
-  "version": "0.0.7-SNAPSHOT",
+  "version": "0.0.9-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

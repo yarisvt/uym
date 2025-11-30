@@ -38,7 +38,7 @@
         <wattpad4j.version>0.1.1</wattpad4j.version>
 
         <!-- JKube properties -->
-        <jkube.version>1.18.1</jkube.version>
+        <jkube.version>1.18.2</jkube.version>
         <jkube.createExternalUrls>true</jkube.createExternalUrls>
         <jkube.enricher.jkube-service.name>${project.artifactId}</jkube.enricher.jkube-service.name>
         <jkube.enricher.jkube-service.port>${jkube.generator.java-exec.webPort}</jkube.enricher.jkube-service.port>
@@ -48,8 +48,7 @@
         <jkube.build.strategy>jib</jkube.build.strategy>
         <jkube.container-image.platforms.1>linux/amd64</jkube.container-image.platforms.1>
         <jkube.container-image.platforms.2>linux/arm64</jkube.container-image.platforms.2>
-        <!-- TODO remove test once ready -->
-        <ingress.host>test.unlock-your-mind.nl</ingress.host>
+        <ingress.host>unlock-your-mind.nl</ingress.host>
         <ingress.service>uym</ingress.service>
 
         <!-- Plugins -->

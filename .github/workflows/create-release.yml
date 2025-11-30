@@ -119,34 +119,39 @@ jobs:
           cache: 'maven'
       - name: Deploy to k3s cluster
         run: |
+          # update and install packages
+          sudo apt-get update -q > /dev/null
+          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 iptables > /dev/null
+          
+          # fetch released tag and build project, build and push docker and generate k8s yml files
           git fetch --tags
           git checkout ${{ needs.release.outputs.tagged }}
           echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
           mvn --no-transfer-progress -B -DskipTests=true clean install
           mvn --no-transfer-progress -B validate k8s:resource k8s:build
           mvn --no-transfer-progress -B validate -DskipTests=true k8s:push
-          sudo apt-get update -q > /dev/null
-          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata wireguard iproute2 ssh iptables > /dev/null
-          sudo mkdir -p ~/.ssh
+          
+          # connect to vpn
           echo "$WG0_CONF" | base64 -d | sudo tee -a /etc/wireguard/wg0.conf > /dev/null
           sudo wg-quick up wg0
-          echo "$SSH_PRIVATE_KEY" | base64 -d | sudo tee -a ~/.ssh/uym_github > /dev/null
-          sudo chown -R $(whoami):$(whoami) ~/.ssh
-          chmod 700 ~/.ssh/uym_github
-          ls -l ~/.ssh
-          ssh-keyscan -H "$SSH_HOST"  | sudo tee -a ~/.ssh/known_hosts > /dev/null
+          
+          # connect to k8s cluster
+          curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
+          mkdir -p ~/.kube
+          echo -n $KUBE_CONFIG | base64 -d > ~/.kube/config
+          
+          # deploy to k8s
           cd target/classes/META-INF/jkube
-          IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do scp -i ~/.ssh/uym_github "$file" "$SSH_USER"@"$SSH_HOST":"$file"; done; IFS=$' \t\n'
-          IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do scp -i ~/.ssh/uym_github -p "$file" "$SSH_USER"@"$SSH_HOST":"$(basename "$file")"; done; done; IFS=$' \t\n'
-          ssh -i ~/.ssh/uym_github -o SendEnv=NAMESPACE "$SSH_USER"@"$SSH_HOST" kubectl create ns $NAMESPACE || true
-          ssh -i ~/.ssh/uym_github -o SendEnv=NAMESPACE "$SSH_USER"@"$SSH_HOST" kubectl config set-context --current --namespace="$NAMESPACE"
-          ssh -i ~/.ssh/uym_github "$SSH_USER"@"$SSH_HOST" kubectl apply --force -f kubernetes.yml
+          kubectl config get-contexts || true
+          kubectl config use-context "$KUBE_CONTEXT" || true
+          kubectl create ns $NAMESPACE || true
+          IFS=$'\n'; for file in $( find . -type f -name kubernetes.yml ); do kubectl apply --force -n "$NAMESPACE" -f "$file"; done; IFS=$' \t\n'
+          IFS=$'\n'; for dir in $( find . -type d -name kubernetes ); do for file in $( find "$dir" -type f -name "*-deployment.yml" ); do kubectl wait --timeout=1800s --for=condition=Available -n "$NAMESPACE" -f "$file"; ATTEMPTS=60; until kubectl rollout status -n "$NAMESPACE" -f "$file" || [ $ATTEMPTS -le 0 ]; do ATTEMPTS=$[ $ATTEMPTS - 1 ]; sleep 10; done; done; done; IFS=$' \t\n'
         env:
           CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
           CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
           CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
           WG0_CONF: ${{ secrets.WG0_CONF }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          NAMESPACE: uym-test # TODO remove test once ready
+          NAMESPACE: uym
